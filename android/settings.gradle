@@ -1,0 +1,3 @@
+rootProject.name = 'MaxHangTime'
+
+include ':app'
