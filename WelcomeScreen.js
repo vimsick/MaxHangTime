@@ -17,7 +17,7 @@ const TimerScreen = require('./TimerScreen');
 export default class WelcomeScreen extends Component {
   onStartPressed() {
     console.log('>>> Start Button Pressed!');
-    this._startRoutine(); //will probably need to pass in the first timer or the collection of timers. 
+    this._startRoutine(); //will probably need to pass in the first timer or the collection of timers.
   }
 
   onEditPressed() {
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   button: {
-    height: 36,
+    height: 50,
     flex: 1,
     flexDirection: 'row',
     backgroundColor: '#00ff7f',
