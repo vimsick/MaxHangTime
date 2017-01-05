@@ -17,7 +17,7 @@ const TimerScreen = require('./TimerScreen');
 export default class WelcomeScreen extends Component {
   onStartPressed() {
     console.log('>>> Start Button Pressed!');
-    this._startRoutine();
+    this._startRoutine(); //will probably need to pass in the first timer that will go. 
   }
 
   onEditPressed() {

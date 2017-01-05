@@ -21,6 +21,8 @@ export default class MaxHangTime extends Component {
     return (
       <NavigatorIOS
         style={styles.container}
+        // navigationBarHidden={true}
+        barTintColor='#2f4f4f'
         initialRoute={{
           title: 'Welcome',
           component: WelcomeScreen,
