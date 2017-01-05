@@ -6,8 +6,14 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
+const formatHangs = require('./formatHangs');
+const moment = require('moment');
+
 class TimerScreen extends Component {
   render() {
+    const yourTime = formatHangs(moment().format('YYYY-MM-DD'), 3);
+    //this will probably get used when you click the stop button. 
+    console.log(yourTime);
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
