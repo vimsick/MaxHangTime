@@ -11,92 +11,35 @@ import {
   Text,
   View,
   TouchableHighlight,
+  NavigatorIOS
 } from 'react-native';
 
+const WelcomeScreen = require('./WelcomeScreen');
+
 export default class MaxHangTime extends Component {
-  onStartPressed() {
-    console.log('>>> Start Button Pressed!');
-  }
-
-  onEditPressed() {
-    console.log('>>> Edit Button Pressed!');
-  }
-
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome!
-        </Text>
-        <View style={styles.flowRight}>
-          <TouchableHighlight
-            style={styles.button}
-            underlayColor='#99d9f4'
-            onPress={this.onStartPressed.bind(this)}
-          >
-            <Text style={styles.buttonText}>
-              Start Routine
-            </Text>
-          </TouchableHighlight>
-          <TouchableHighlight
-            style={[styles.button, styles.buttonEdit]}
-            underlayColor='#99d9f4'
-            onPress={this.onEditPressed.bind(this)}
-          >
-            <Text style={styles.buttonText}>
-              Edit Routine
-            </Text>
-          </TouchableHighlight>
-        </View>
-      </View>
+      <NavigatorIOS
+        style={styles.container}
+        initialRoute={{
+          title: 'Welcome',
+          component: WelcomeScreen,
+        }}
+      />
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'black',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-    color: 'gray'
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  flowRight: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignSelf: 'stretch'
-  },
-  buttonText: {
-    fontSize: 18,
+  text: {
     color: 'white',
-    alignSelf: 'center'
+    backgroundColor: 'black',
+    fontSize: 30,
+    margin: 80
   },
-  button: {
-    height: 36,
-    flex: 1,
-    flexDirection: 'row',
-    backgroundColor: '#48BBEC',
-    borderColor: '#48BBEC',
-    borderWidth: 1,
-    borderRadius: 8,
-    // marginBottom: 10,
-    margin: 10,
-    alignSelf: 'auto',
-    justifyContent: 'center'
-  },
-  buttonEdit: {
-    backgroundColor: 'green',
-    borderColor: 'green',
+
+  container: {
+    flex: 1
   }
 });
 
