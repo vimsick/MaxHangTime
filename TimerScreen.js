@@ -20,24 +20,31 @@ class TimerScreen extends Component {
 
   onStopButtonPressed() {
     console.log('>>> Stop Button Pressed!');
+
+    // figuring out how long between page load and when you click stop button
     const duration = moment().diff(this.state.startTime, 'seconds');
     const yourTime = formatHangs(moment().format('YYYY-MM-DD'), duration);
-    //this will probably get used when you click the stop button.
     console.log(yourTime);
 
-    this.setState({ hold: 'Medium Crimp' });
     // this should get the NEXT hold in the routine
     // or if there aren't any, direct to the done with workout screen.)
+    this.setState({ hold: 'Medium Crimp' });
     // and then render the rest screen.
+
+    // getting ready for next hold (should live on resting page.)
+    this.setState({ startTime: moment() });
   }
 
   render() {
     console.log(this.state.hold);
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          {this.state.hold}
-        </Text>
+        <View style={styles.header}>
+          <Text style={[styles.welcome, styles.headerText]}>
+            {this.state.hold}
+          </Text>
+        </View>
+        <View style={styles.timers}>
         <Text style={styles.welcome}>
           This is where the timer goes.
         </Text>
@@ -51,6 +58,7 @@ class TimerScreen extends Component {
               Stop
             </Text>
           </TouchableHighlight>
+        </View>
         </View>
       </View>
     );
@@ -69,6 +77,22 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
     color: 'gray'
+  },
+  header: {
+    flex: 1,
+    marginTop: 60,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  headerText: {
+    marginBottom: 40,
+    fontSize: 25,
+    fontWeight: 'bold'
+  },
+  timers: {
+    flex: 3,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   instructions: {
     textAlign: 'center',
