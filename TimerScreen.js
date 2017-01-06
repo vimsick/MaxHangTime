@@ -13,12 +13,18 @@ class TimerScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-       hold: 'Small Crimp' // this should come from the list of holds in the routine.
+       hold: 'Small Crimp', // this should come from the list of holds in the routine.
+       startTime: moment()
     };
   }
 
   onStopButtonPressed() {
     console.log('>>> Stop Button Pressed!');
+    const duration = moment().diff(this.state.startTime, 'seconds');
+    const yourTime = formatHangs(moment().format('YYYY-MM-DD'), duration);
+    //this will probably get used when you click the stop button.
+    console.log(yourTime);
+
     this.setState({ hold: 'Medium Crimp' });
     // this should get the NEXT hold in the routine
     // or if there aren't any, direct to the done with workout screen.)
@@ -27,9 +33,6 @@ class TimerScreen extends Component {
 
   render() {
     console.log(this.state.hold);
-    const yourTime = formatHangs(moment().format('YYYY-MM-DD'), 3);
-    //this will probably get used when you click the stop button.
-    console.log(yourTime);
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
