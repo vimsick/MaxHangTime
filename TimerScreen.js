@@ -10,24 +10,38 @@ const formatHangs = require('./formatHangs');
 const moment = require('moment');
 
 class TimerScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+       hold: 'Small Crimp' // this should come from the list of holds in the routine.
+    };
+  }
 
   onStopButtonPressed() {
     console.log('>>> Stop Button Pressed!');
+    this.setState({ hold: 'Medium Crimp' });
+    // this should get the NEXT hold in the routine
+    // or if there aren't any, direct to the done with workout screen.)
+    // and then render the rest screen.
   }
 
   render() {
+    console.log(this.state.hold);
     const yourTime = formatHangs(moment().format('YYYY-MM-DD'), 3);
     //this will probably get used when you click the stop button.
     console.log(yourTime);
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
+          {this.state.hold}
+        </Text>
+        <Text style={styles.welcome}>
           This is where the timer goes.
         </Text>
         <View style={styles.flowRight}>
           <TouchableHighlight
             style={styles.stopButton}
-            underlayColor='red'
+            underlayColor='#f08080'
             onPress={this.onStopButtonPressed.bind(this)}
           >
             <Text style={styles.buttonText}>
