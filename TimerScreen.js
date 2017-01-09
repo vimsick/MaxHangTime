@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -5,6 +6,8 @@ import {
   View,
   TouchableHighlight,
 } from 'react-native';
+
+import Clock from './clock';
 
 const formatHangs = require('./formatHangs');
 const moment = require('moment');
@@ -45,9 +48,8 @@ class TimerScreen extends Component {
           </Text>
         </View>
         <View style={styles.timers}>
-        <Text style={styles.welcome}>
-          This is where the timer goes.
-        </Text>
+          <Clock />
+        </View>
         <View style={styles.flowRight}>
           <TouchableHighlight
             style={styles.stopButton}
@@ -58,7 +60,6 @@ class TimerScreen extends Component {
               Stop
             </Text>
           </TouchableHighlight>
-        </View>
         </View>
       </View>
     );
