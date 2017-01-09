@@ -17,15 +17,21 @@ class TimerScreen extends Component {
     super(props);
     this.state = {
        hold: 'Small Crimp', // this should come from the list of holds in the routine.
-       startTime: moment()
+       timer: 0
     };
+
+    // Toggle the state every second (now how do I stop this when I click the stop button?)
+    setInterval(() => {
+      this.setState({ timer: this.state.timer + 1 });
+      }, 1000);
   }
+
 
   onStopButtonPressed() {
     console.log('>>> Stop Button Pressed!');
 
     // figuring out how long between page load and when you click stop button
-    const duration = moment().diff(this.state.startTime, 'seconds');
+    const duration = this.state.timer
     const yourTime = formatHangs(moment().format('YYYY-MM-DD'), duration);
     console.log(yourTime);
 
@@ -35,11 +41,11 @@ class TimerScreen extends Component {
     // and then render the rest screen.
 
     // getting ready for next hold (should live on resting page.)
-    this.setState({ startTime: moment() });
+    this.setState({ timer: 0 });
   }
 
   render() {
-    console.log(this.state.hold);
+    // console.log(this.state.hold);
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -48,7 +54,9 @@ class TimerScreen extends Component {
           </Text>
         </View>
         <View style={styles.timers}>
-          <Clock />
+          <Clock
+            display={this.state.timer}
+          />
         </View>
         <View style={styles.flowRight}>
           <TouchableHighlight
