@@ -19,29 +19,42 @@ class TimerScreen extends Component {
        hold: 'Small Crimp', // this should come from the list of holds in the routine.
        timer: 0
     };
-
-    // Toggle the state every second (now how do I stop this when I click the stop button?)
-    setInterval(() => {
-      this.setState({ timer: this.state.timer + 1 });
-      }, 1000);
+    this.myTimer = this.startTimer();
   }
-
 
   onStopButtonPressed() {
     console.log('>>> Stop Button Pressed!');
 
     // figuring out how long between page load and when you click stop button
-    const duration = this.state.timer
+    const duration = this.state.timer;
     const yourTime = formatHangs(moment().format('YYYY-MM-DD'), duration);
     console.log(yourTime);
 
-    // this should get the NEXT hold in the routine
-    // or if there aren't any, direct to the done with workout screen.)
-    this.setState({ hold: 'Medium Crimp' });
-    // and then render the rest screen.
+    // stop the interval counting.
+    this.stopTimer();
 
-    // getting ready for next hold (should live on resting page.)
-    this.setState({ timer: 0 });
+    //todo: need to do something with the yourTime rather than just console logging it here.
+
+    // todo: wait, then direct to the resting screen
+
+    // when come back to timer, the hold will get set to the next hold in the workout.
+    this.setState({ hold: 'Medium Crimp' });
+    // or if there aren't any, direct to the done with workout screen.)
+  }
+
+  startTimer() {
+    console.log('startTimer called');
+    // Toggle the state every second (now how do I stop this when I click the stop button?)
+    const timer = setInterval(() => {
+      this.setState({ timer: this.state.timer + 1 });
+      }, 1000);
+
+    return timer;
+  }
+
+  stopTimer() {
+    console.log('stopTimer called');
+    clearInterval(this.myTimer);
   }
 
   render() {

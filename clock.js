@@ -14,7 +14,7 @@ class Clock extends Component {
 
   render() {
     const display = this.props.display;
-
+    console.log(display); 
     return (
         <Text style={styles.clock}>
           {display}
