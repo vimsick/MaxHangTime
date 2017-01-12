@@ -34,6 +34,11 @@ export default class WelcomeScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <View style={styles.graph}>
+          <Text style={styles.welcome}>
+            This is where a graph will go.
+          </Text>
+        </View>
         <Text style={styles.welcome}>
           Welcome!
         </Text>
@@ -70,6 +75,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'black',
+  },
+  graph: {
+    flex: 1, 
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'transparent'
   },
   welcome: {
     fontSize: 20,
