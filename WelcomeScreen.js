@@ -10,11 +10,21 @@ import {
   Text,
   View,
   TouchableHighlight,
+  TouchableOpacity,
 } from 'react-native';
+
+import data from './js/services/data';
+import GraphView from './js/components/GraphView';
 
 const TimerScreen = require('./TimerScreen');
 
+
 export default class WelcomeScreen extends Component {
+  state = {
+    hold: 'small crimp',
+    data: data.smallCrimpData,
+  };
+
   onStartPressed() {
     console.log('>>> Start Button Pressed!');
     this._startRoutine(); //will probably need to pass in the first timer or the collection of timers.
@@ -22,6 +32,10 @@ export default class WelcomeScreen extends Component {
 
   onEditPressed() {
     console.log('>>> Edit Button Pressed!');
+  }
+
+  viewNextHold() {
+    this.setState({ hold: 'medium crimp', data: data.mediumCrimpData });
   }
 
   _startRoutine() {
@@ -35,9 +49,20 @@ export default class WelcomeScreen extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.graph}>
-          <Text style={styles.welcome}>
-            This is where a graph will go.
-          </Text>
+          <View style={styles.flowRight}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={this.viewNextHold.bind(this)}
+            >
+              <Text style={styles.buttonText}>
+                View Next Hold
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <GraphView
+            name={this.state.hold}
+            data={this.state.data}
+          />
         </View>
         <Text style={styles.welcome}>
           Welcome!
@@ -77,7 +102,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   graph: {
-    flex: 1, 
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent'
