@@ -1,4 +1,4 @@
-// Hardcoded data to display in charts, will need to replace with some calls to Realm. 
+// Hardcoded data to display in charts, will need to replace with some calls to Realm.
 export default {
 
   smallCrimpData: [

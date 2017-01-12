@@ -10,7 +10,6 @@ import {
   Text,
   View,
   TouchableHighlight,
-  TouchableOpacity,
 } from 'react-native';
 
 import data from './js/services/data';
@@ -50,23 +49,24 @@ export default class WelcomeScreen extends Component {
       <View style={styles.container}>
         <View style={styles.graph}>
           <View style={styles.flowRight}>
-            <TouchableOpacity
-              style={styles.button}
+            <Text style={styles.welcome}>
+              Your progress!
+            </Text>
+            <TouchableHighlight
+              style={[styles.button, styles.buttonEdit]}
+              underlayColor='#99d9f4'
               onPress={this.viewNextHold.bind(this)}
             >
               <Text style={styles.buttonText}>
-                View Next Hold
+                See Next
               </Text>
-            </TouchableOpacity>
+            </TouchableHighlight>
           </View>
           <GraphView
             name={this.state.hold}
             data={this.state.data}
           />
         </View>
-        <Text style={styles.welcome}>
-          Welcome!
-        </Text>
         <View style={styles.flowRight}>
           <TouchableHighlight
             style={styles.button}
@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'black',
+    paddingTop: 60,
   },
   graph: {
     flex: 1,
