@@ -22,6 +22,10 @@ class TimerScreen extends Component {
     this.myTimer = this.startTimer();
   }
 
+  componentWillUnmount() {
+    this.stopTimer(); 
+  }
+
   onStopButtonPressed() {
     console.log('>>> Stop Button Pressed!');
 
@@ -56,6 +60,7 @@ class TimerScreen extends Component {
     console.log('stopTimer called');
     clearInterval(this.myTimer);
   }
+
 
   render() {
     // console.log(this.state.hold);
