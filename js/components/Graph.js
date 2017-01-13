@@ -107,7 +107,7 @@ export default class Graph extends Component {
             <Shape
               d={linePath}
               stroke={Color.Orange}
-              strokeWidth={1}
+              strokeWidth={1.5}
             />
           </Group>
         </Surface>
