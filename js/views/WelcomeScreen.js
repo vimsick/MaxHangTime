@@ -12,10 +12,11 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
-import data from './js/services/data';
-import GraphView from './js/components/GraphView';
+import defaults from '../services/defaults';
+import data from '../services/data';
+import GraphView from '../components/GraphView';
 
-const TimerScreen = require('./TimerScreen');
+const CountdownScreen = require('./CountdownScreen');
 
 
 export default class WelcomeScreen extends Component {
@@ -26,7 +27,7 @@ export default class WelcomeScreen extends Component {
 
   onStartPressed() {
     console.log('>>> Start Button Pressed!');
-    this._startRoutine(); //will probably need to pass in the first timer or the collection of timers.
+    this._startRoutine(defaults.workout[0]); //will probably need to pass in the first timer or the collection of timers.
   }
 
   onEditPressed() {
@@ -37,10 +38,11 @@ export default class WelcomeScreen extends Component {
     this.setState({ hold: 'medium crimp', data: data.mediumCrimpData });
   }
 
-  _startRoutine() {
+  _startRoutine(nextHold) {
     this.props.navigator.push({
-      title: 'Timer',
-      component: TimerScreen
+      title: 'Countdown',
+      component: CountdownScreen,
+      passProps: { nextHold, startCount: 10 }
     });
   }
 

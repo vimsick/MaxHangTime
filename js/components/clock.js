@@ -8,13 +8,10 @@ import {
 const moment = require('moment');
 
 class Clock extends Component {
-  constructor(props) {
-  super(props);
-  }
 
   render() {
     const display = this.props.display;
-    console.log(display); 
+    console.log(display);
     return (
         <Text style={styles.clock}>
           {display}
@@ -32,6 +29,7 @@ const styles = StyleSheet.create({
   clock: {
     textAlign: 'center',
     color: 'white',
+    fontSize: 30,
   }
 });
 module.exports = Clock;

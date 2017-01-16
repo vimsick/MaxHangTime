@@ -7,9 +7,9 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
-import Clock from './clock';
+import Clock from '../components/clock';
 
-const formatHangs = require('./formatHangs');
+const formatHangs = require('../services/formatHangs');
 const moment = require('moment');
 
 class TimerScreen extends Component {

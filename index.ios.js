@@ -14,7 +14,7 @@ import {
   NavigatorIOS
 } from 'react-native';
 
-const WelcomeScreen = require('./WelcomeScreen');
+const WelcomeScreen = require('./js/views/WelcomeScreen');
 
 export default class MaxHangTime extends Component {
   render() {
