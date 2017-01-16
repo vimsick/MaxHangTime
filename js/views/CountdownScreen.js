@@ -31,7 +31,7 @@ class CountdownScreen extends Component {
     this.props.navigator.push({
       title: this.props.nextHold,
       component: TimerScreen,
-      passProps: { nextHold: this.props.nextHold }
+      passProps: { hold: this.props.nextHold }
     });
   }
 

@@ -16,14 +16,13 @@ class TimerScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-       hold: 'Small Crimp', // this should come from the list of holds in the routine.
        timer: 0
     };
     this.myTimer = this.startTimer();
   }
 
   componentWillUnmount() {
-    this.stopTimer(); 
+    this.stopTimer();
   }
 
   onStopButtonPressed() {
@@ -68,7 +67,7 @@ class TimerScreen extends Component {
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={[styles.welcome, styles.headerText]}>
-            {this.state.hold}
+            {this.props.hold}
           </Text>
         </View>
         <View style={styles.timers}>

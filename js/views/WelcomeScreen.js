@@ -52,7 +52,7 @@ export default class WelcomeScreen extends Component {
     this.props.navigator.push({
       title: 'Countdown',
       component: CountdownScreen,
-      passProps: { nextHold, startCount: 10 }
+      passProps: { nextHold, startCount: 5 }
     });
   }
 
