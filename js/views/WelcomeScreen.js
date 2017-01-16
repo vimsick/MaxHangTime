@@ -20,10 +20,14 @@ const CountdownScreen = require('./CountdownScreen');
 
 
 export default class WelcomeScreen extends Component {
-  state = {
-    hold: 'small crimp',
-    data: data.smallCrimpData,
-  };
+  constructor(props) {
+    super(props);
+    this.holdIndex = 0;
+    this.state = {
+      hold: data[this.holdIndex].name,
+      data: data[this.holdIndex].data,
+    };
+  }
 
   onStartPressed() {
     console.log('>>> Start Button Pressed!');
@@ -35,7 +39,13 @@ export default class WelcomeScreen extends Component {
   }
 
   viewNextHold() {
-    this.setState({ hold: 'medium crimp', data: data.mediumCrimpData });
+    this.holdIndex += 1;
+    if (data[this.holdIndex] === undefined) {
+      this.holdIndex = 0;
+      this.setState({ hold: data[this.holdIndex].name, data: data[this.holdIndex].data });
+    } else {
+      this.setState({ hold: data[this.holdIndex].name, data: data[this.holdIndex].data });
+    }
   }
 
   _startRoutine(nextHold) {
