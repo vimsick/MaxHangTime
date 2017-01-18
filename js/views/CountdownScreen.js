@@ -27,9 +27,12 @@ class CountdownScreen extends Component {
     //this automatically stops when it gets to 0.
       const timer = setInterval(() => {
         (this.setState({ timer: this.state.timer - 1 }));
-        if (this.state.timer <= 0) clearInterval(timer);
-        this.setState({ countdown: false });
-        }, 1000);
+        if (this.state.timer <= 0) {
+          this.setState({ countdown: false });
+          clearInterval(timer);
+        }
+        console.log(this.state.countdown);
+      }, 1000);
 
     return timer;
   }
@@ -38,6 +41,7 @@ class CountdownScreen extends Component {
     console.log('countup called');
     clearInterval(this.myCounter);
     // Toggle the state every second (now how do I stop this when I click the stop button?)
+    // this.setState({ timer: 0 });
     const timer = setInterval(() => {
       this.setState({ timer: this.state.timer + 1 });
       }, 1000);
