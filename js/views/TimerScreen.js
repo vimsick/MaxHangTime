@@ -48,7 +48,7 @@ class TimerScreen extends Component {
 
   countup() {
     console.log('countup called');
-    console.log(defaults.workout);
+
     clearInterval(this.myCounter);
     // Toggle the state every second (now how do I stop this when I click the stop button?)
     // this.setState({ timer: 0 });
@@ -67,17 +67,29 @@ class TimerScreen extends Component {
 
   stopTimer() {
     console.log('stopTimer called');
-    console.log(this.state.holdIndex);
     clearInterval(this.myCounter);
     this.setState({ countdown: true, timer: this.props.restCount, holdIndex: this.state.holdIndex + 1 });
+
+    this.startCountDown();
+  }
+
+  startCountDown() {
+    console.log('startCountDown called');
     console.log(this.state.holdIndex);
     // if this is the last hold in the series, don't start the countdown again
-    if (defaults.workout[this.state.holdIndex] !== undefined) {
-      this.myCounter = this.countdown();
+    if (typeof defaults.workout[this.state.holdIndex + 1] === 'undefined') {
+      clearInterval(this.myCounter);
       this.setState({
-        title: 'Resting',
-        subtitle: `Next up: ${defaults.workout[this.state.holdIndex + 1]}`
+        countdown: false,
+        title: 'Good Work!',
+        timer: '',
       })
+    } else {
+        this.myCounter = this.countdown();
+        this.setState({
+          title: 'Resting',
+          subtitle: `Next up: ${defaults.workout[this.state.holdIndex + 1]}`
+        })
     }
   }
 
@@ -99,7 +111,7 @@ class TimerScreen extends Component {
   }
 
   componentDidUpdate() {
-    if ((this.state.countdown === false) && (this.state.timer <= 1)) {
+    if ((typeof this.state.timer !== 'string') && (this.state.countdown === false) && (this.state.timer <= 1)) {
       console.log('countdown stopped, start the timer');
       this.startTimer();
     }
