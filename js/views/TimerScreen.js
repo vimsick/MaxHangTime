@@ -111,7 +111,7 @@ class TimerScreen extends Component {
 
   componentDidMount() {
     //the first time.
-    this.countdown();
+    this.myCounter = this.countdown();
   }
 
   componentDidUpdate() {
@@ -122,7 +122,7 @@ class TimerScreen extends Component {
   }
 
   componentWillUnmount() {
-    this.stopTimer();
+    clearInterval(this.myCounter);
   }
 
   render() {
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#48BBEC',
     borderColor: '#48BBEC',
     borderWidth: 1,
-    borderRadius: 25,
+    borderRadius: 20,
     // marginBottom: 10,
     margin: 10,
     alignSelf: 'auto',
