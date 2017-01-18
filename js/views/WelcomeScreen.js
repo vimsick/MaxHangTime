@@ -16,7 +16,7 @@ import defaults from '../services/defaults';
 import data from '../services/data';
 import GraphView from '../components/GraphView';
 
-const CountdownScreen = require('./CountdownScreen');
+const TimerScreen = require('./TimerScreen');
 
 
 export default class WelcomeScreen extends Component {
@@ -51,7 +51,7 @@ export default class WelcomeScreen extends Component {
   _startRoutine(hold) {
     this.props.navigator.push({
       title: 'Countdown',
-      component: CountdownScreen,
+      component: TimerScreen,
       passProps: { hold, startCount: 5, restCount: defaults.restBetweenHolds }
     });
   }

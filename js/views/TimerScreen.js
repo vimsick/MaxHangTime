@@ -1,14 +1,17 @@
-
+// here is where we countdown between holds or between reps.
 import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
   View,
-  TouchableHighlight,
+  TouchableHighlight
 } from 'react-native';
 
 import Clock from '../components/clock';
+import Title from '../components/title';
+import defaults from '../services/defaults';
 
+const renderIf = require('../services/renderIf');
 const formatHangs = require('../services/formatHangs');
 const moment = require('moment');
 
@@ -16,19 +19,71 @@ class TimerScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-       timer: 0
+      countdown: true,
+      timer: this.props.startCount,
+      title: 'Get Ready!',
+      subtitle: `Next Up: ${defaults.workout[0]}`,
+      holdIndex: 0,
     };
-    this.myTimer = this.startTimer();
   }
 
-  componentWillUnmount() {
-    this.stopTimer();
+  countdown() {
+    console.log('countdown called');
+    //this automatically stops when it gets to 0.
+      const timer = setInterval(() => {
+        (this.setState({ timer: this.state.timer - 1 }));
+        if (this.state.timer <= 0) {
+          this.setState({
+            title: defaults.workout[this.state.holdIndex],
+            countdown: false,
+            subtitle: '',
+          });
+          clearInterval(timer);
+        }
+        console.log(this.state.countdown);
+      }, 1000);
+
+    return timer;
   }
+
+  countup() {
+    console.log('countup called');
+    console.log(defaults.workout);
+    clearInterval(this.myCounter);
+    // Toggle the state every second (now how do I stop this when I click the stop button?)
+    // this.setState({ timer: 0 });
+    const timer = setInterval(() => {
+      this.setState({ timer: this.state.timer + 1, });
+      }, 1000);
+
+    return timer;
+  }
+
+  startTimer() {
+    console.log('startTimer called');
+    clearInterval(this.myCounter);
+    this.myCounter = this.countup();
+  }
+
+  stopTimer() {
+    console.log('stopTimer called');
+    console.log(this.state.holdIndex);
+    clearInterval(this.myCounter);
+    this.setState({ countdown: true, timer: this.props.restCount, holdIndex: this.state.holdIndex + 1 });
+    console.log(this.state.holdIndex);
+    // if this is the last hold in the series, don't start the countdown again
+    if (defaults.workout[this.state.holdIndex] !== undefined) {
+      this.myCounter = this.countdown();
+      this.setState({
+        title: 'Resting',
+        subtitle: `Next up: ${defaults.workout[this.state.holdIndex + 1]}`
+      })
+    }
+  }
+
 
   onStopButtonPressed() {
     console.log('>>> Stop Button Pressed!');
-
-    // figuring out how long between page load and when you click stop button
     const duration = this.state.timer;
     const yourTime = formatHangs(moment().format('YYYY-MM-DD'), duration);
     console.log(yourTime);
@@ -36,47 +91,38 @@ class TimerScreen extends Component {
     // stop the interval counting.
     this.stopTimer();
 
-    //todo: need to do something with the yourTime rather than just console logging it here.
-
-    // todo: wait, then direct to the resting screen
-
-    // when come back to timer, the hold will get set to the next hold in the workout.
-    this.setState({ hold: 'Medium Crimp' });
-    // or if there aren't any, direct to the done with workout screen.)
   }
 
-  startTimer() {
-    console.log('startTimer called');
-    // Toggle the state every second (now how do I stop this when I click the stop button?)
-    const timer = setInterval(() => {
-      this.setState({ timer: this.state.timer + 1 });
-      }, 1000);
-
-    return timer;
+  componentDidMount() {
+    //the first time.
+    this.countdown();
   }
 
-  stopTimer() {
-    console.log('stopTimer called');
-    clearInterval(this.myTimer);
+  componentDidUpdate() {
+    if ((this.state.countdown === false) && (this.state.timer <= 1)) {
+      console.log('countdown stopped, start the timer');
+      this.startTimer();
+    }
   }
 
+  componentWillUnmount() {
+    this.stopTimer();
+  }
 
   render() {
-    // console.log(this.state.hold);
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={[styles.welcome, styles.headerText]}>
-            {this.props.hold}
-          </Text>
-        </View>
+            <Title
+              header={this.state.title}
+              subheader={this.state.subtitle}
+            />
         <View style={styles.timers}>
           <Clock
             display={this.state.timer}
           />
         </View>
         <View style={styles.flowRight}>
-          <TouchableHighlight
+          { renderIf(!(this.state.countdown), <TouchableHighlight
             style={styles.stopButton}
             underlayColor='#f08080'
             onPress={this.onStopButtonPressed.bind(this)}
@@ -84,7 +130,8 @@ class TimerScreen extends Component {
             <Text style={styles.buttonText}>
               Stop
             </Text>
-          </TouchableHighlight>
+          </TouchableHighlight>)
+          }
         </View>
       </View>
     );
@@ -103,17 +150,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
     color: 'gray'
-  },
-  header: {
-    flex: 1,
-    marginTop: 60,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  headerText: {
-    marginBottom: 40,
-    fontSize: 25,
-    fontWeight: 'bold'
   },
   timers: {
     flex: 3,
