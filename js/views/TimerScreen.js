@@ -80,7 +80,7 @@ class TimerScreen extends Component {
     if (typeof defaults.workout[this.state.holdIndex + 1] === 'undefined') {
       clearInterval(this.myCounter);
       this.setState({
-        countdown: false,
+        // countdown: false,
         title: 'Good Work!',
         timer: '',
       })
@@ -102,7 +102,11 @@ class TimerScreen extends Component {
 
     // stop the interval counting.
     this.stopTimer();
+  }
 
+  onSeeProgress() {
+    console.log('>>see progress button pressed!')
+    this.props.navigator.pop();
   }
 
   componentDidMount() {
@@ -135,7 +139,7 @@ class TimerScreen extends Component {
         </View>
         <View style={styles.flowRight}>
           { renderIf(!(this.state.countdown), <TouchableHighlight
-            style={styles.stopButton}
+            style={[styles.button, styles.stopButton]}
             underlayColor='#f08080'
             onPress={this.onStopButtonPressed.bind(this)}
           >
@@ -144,6 +148,16 @@ class TimerScreen extends Component {
             </Text>
           </TouchableHighlight>)
           }
+          { renderIf(this.state.title === 'Good Work!',
+            <TouchableHighlight
+              style={styles.button}
+              onPress={this.onSeeProgress.bind(this)}
+            >
+              <Text style={styles.buttonText}>
+                See Progress
+              </Text>
+            </TouchableHighlight>
+         )}
         </View>
       </View>
     );
@@ -183,17 +197,22 @@ const styles = StyleSheet.create({
     color: 'white',
     alignSelf: 'center'
   },
-  stopButton: {
+  button: {
     height: 50,
     flex: 2,
     flexDirection: 'row',
-    backgroundColor: 'red',
-    borderColor: 'red',
+    backgroundColor: '#48BBEC',
+    borderColor: '#48BBEC',
     borderWidth: 1,
     borderRadius: 25,
+    // marginBottom: 10,
     margin: 10,
     alignSelf: 'auto',
     justifyContent: 'center'
+  },
+  stopButton: {
+    backgroundColor: 'red',
+    borderColor: 'red',
   }
 });
 

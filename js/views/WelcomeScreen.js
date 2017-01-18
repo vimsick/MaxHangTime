@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#00ff7f',
     borderColor: '#00ff7f',
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: 25,
     // marginBottom: 10,
     margin: 10,
     alignSelf: 'auto',
