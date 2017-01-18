@@ -10,6 +10,7 @@ import {
 import Clock from '../components/clock';
 // import TimerScreen from './TimerScreen';
 
+const renderIf = require('../services/renderIf');
 const formatHangs = require('../services/formatHangs');
 const moment = require('moment');
 
@@ -58,7 +59,7 @@ class CountdownScreen extends Component {
   stopTimer() {
     console.log('stopTimer called');
     clearInterval(this.myCounter);
-    this.setState({ countdown: true });
+    this.setState({ countdown: true, timer: this.props.restCount });
     // if this is the last hold in the series, don't start the countdown again
     // this.myCounter = this.countdown();
   }
@@ -72,9 +73,11 @@ class CountdownScreen extends Component {
 
     // stop the interval counting.
     this.stopTimer();
+
   }
 
   componentDidMount() {
+    //the first time.
     this.countdown();
   }
 
@@ -98,15 +101,12 @@ class CountdownScreen extends Component {
           </Text>
         </View>
         <View style={styles.timers}>
-          <Text style={styles.header}>
-            {this.state.title}
-          </Text>
           <Clock
             display={this.state.timer}
           />
         </View>
         <View style={styles.flowRight}>
-          <TouchableHighlight
+          { renderIf(!(this.state.countdown), <TouchableHighlight
             style={styles.stopButton}
             underlayColor='#f08080'
             onPress={this.onStopButtonPressed.bind(this)}
@@ -114,7 +114,8 @@ class CountdownScreen extends Component {
             <Text style={styles.buttonText}>
               Stop
             </Text>
-          </TouchableHighlight>
+          </TouchableHighlight>)
+          }
         </View>
       </View>
     );
