@@ -48,11 +48,11 @@ export default class WelcomeScreen extends Component {
     }
   }
 
-  _startRoutine(nextHold) {
+  _startRoutine(hold) {
     this.props.navigator.push({
       title: 'Countdown',
       component: CountdownScreen,
-      passProps: { nextHold, startCount: 5 }
+      passProps: { hold, startCount: 5 }
     });
   }
 
