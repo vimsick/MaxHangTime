@@ -15,9 +15,12 @@ import {
 import defaults from '../services/defaults';
 import data from '../services/data';
 import GraphView from '../components/GraphView';
+import HoldService from '../services/HoldService';
 
+const EditScreen = require('./EditScreen');
 const TimerScreen = require('./TimerScreen');
 
+const dataList = HoldService.findAll();
 
 export default class WelcomeScreen extends Component {
   constructor(props) {
@@ -36,6 +39,7 @@ export default class WelcomeScreen extends Component {
 
   onEditPressed() {
     console.log('>>> Edit Button Pressed!');
+    this._editRoutine(); 
   }
 
   viewNextHold() {
@@ -53,6 +57,13 @@ export default class WelcomeScreen extends Component {
       title: 'Countdown',
       component: TimerScreen,
       passProps: { hold, startCount: 5, restCount: defaults.restBetweenHolds }
+    });
+  }
+
+  _editRoutine() {
+    this.props.navigator.push({
+      title: 'Edit Workout',
+      component: EditScreen,
     });
   }
 
