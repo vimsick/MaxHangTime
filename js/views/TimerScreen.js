@@ -29,17 +29,20 @@ class TimerScreen extends Component {
     };
   }
 
+  maxDuration(hold) {
+    // return maxDuration;
+  }
+
   countdown() {
     console.log('countdown called');
     //returns the hold and list of hangs for this hold from realm.
-    const thisHold = HoldService.find(defaults.workout[this.state.holdIndex]);
 
+    const thisHold = HoldService.find(defaults.workout[this.state.holdIndex]);
     const theseHangs = thisHold.hangs;
 
     const maxDuration = theseHangs.sorted('duration', true)[0].duration;
     console.log('now max durawtion?');
     console.log(maxDuration);
-
 
     //this automatically stops when it gets to 0.
       const timer = setInterval(() => {
@@ -48,7 +51,8 @@ class TimerScreen extends Component {
           this.setState({
             title: defaults.workout[this.state.holdIndex],
             countdown: false,
-            subtitle: '',
+            subtitle: `Your Best Time is: ${maxDuration}`,
+            holdIndex: this.state.holdIndex + 1,
           });
           clearInterval(timer);
         }
@@ -80,7 +84,7 @@ class TimerScreen extends Component {
   stopTimer() {
     console.log('stopTimer called');
     clearInterval(this.myCounter);
-    this.setState({ countdown: true, timer: this.props.restCount, holdIndex: this.state.holdIndex + 1 });
+    this.setState({ countdown: true, timer: this.props.restCount });
 
     this.startCountDown();
   }
@@ -89,7 +93,7 @@ class TimerScreen extends Component {
     console.log('startCountDown called');
     console.log(this.state.holdIndex);
     // if this is the last hold in the series, don't start the countdown again
-    if (typeof defaults.workout[this.state.holdIndex + 1] === 'undefined') {
+    if (typeof defaults.workout[this.state.holdIndex] === 'undefined') {
       clearInterval(this.myCounter);
       this.setState({
         // countdown: false,
@@ -100,7 +104,7 @@ class TimerScreen extends Component {
         this.myCounter = this.countdown();
         this.setState({
           title: 'Resting',
-          subtitle: `Next up: ${defaults.workout[this.state.holdIndex + 1]}`
+          subtitle: `Next up: ${defaults.workout[this.state.holdIndex]}`
         });
     }
   }
