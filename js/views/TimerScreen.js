@@ -9,6 +9,7 @@ import {
 
 import Clock from '../components/clock';
 import Title from '../components/title';
+import HoldService from '../services/HoldService';
 import defaults from '../services/defaults';
 
 const renderIf = require('../services/renderIf');
@@ -97,8 +98,12 @@ class TimerScreen extends Component {
   onStopButtonPressed() {
     console.log('>>> Stop Button Pressed!');
     const duration = this.state.timer;
-    const yourTime = formatHangs(moment().format('YYYY-MM-DD'), duration);
+    const yourTime = formatHangs(new Date(), duration);
     console.log(yourTime);
+
+    //for now, save data for every run of the timer.
+    const hold = this.state.title;
+    HoldService.addHang(hold, yourTime);
 
     // stop the interval counting.
     this.stopTimer();
