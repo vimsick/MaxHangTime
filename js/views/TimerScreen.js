@@ -89,7 +89,7 @@ class TimerScreen extends Component {
         this.setState({
           title: 'Resting',
           subtitle: `Next up: ${defaults.workout[this.state.holdIndex + 1]}`
-        })
+        });
     }
   }
 

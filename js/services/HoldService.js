@@ -62,7 +62,6 @@ const HoldService = {
       });
     }
   }
-
 };
 
 HoldService.save(new HoldModel('Small Crimp'));

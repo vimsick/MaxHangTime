@@ -1,10 +1,10 @@
-const formatHangs = require('../formatHangs');
+import HangModel from '../js/services/models/hang';
+
+const formatHangs = require('../js/services/formatHangs');
 const moment = require('moment');
 
-test('given a date and a hang duration, expect back object', () => {
+test('given a date and a hang duration, expect back a hang model', () => {
   const now = moment().format('MM-DD-YYYY');
-  const desiredObject = {};
-  desiredObject[now] = 12;
 
-  expect(formatHangs(now, 12)).toMatchObject(desiredObject);
+  expect(formatHangs(now, 12)).toBeInstanceOf(HangModel);
 });
