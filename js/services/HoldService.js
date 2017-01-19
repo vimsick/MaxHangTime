@@ -42,6 +42,10 @@ const HoldService = {
     return holdData.objects('Hold');
   },
 
+  find(holdName) {
+    return holdData.objects('Hold').filtered("name = '" + holdName + "'")[0];
+  },
+
   save(hold) {
     if (holdData.objects('Hold').filtered("name = '" + hold.name + "'").length) return;
 

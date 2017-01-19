@@ -16,6 +16,7 @@ const renderIf = require('../services/renderIf');
 const formatHangs = require('../services/formatHangs');
 const moment = require('moment');
 
+
 class TimerScreen extends Component {
   constructor(props) {
     super(props);
@@ -30,6 +31,16 @@ class TimerScreen extends Component {
 
   countdown() {
     console.log('countdown called');
+    //returns the hold and list of hangs for this hold from realm.
+    const thisHold = HoldService.find(defaults.workout[this.state.holdIndex]);
+
+    const theseHangs = thisHold.hangs;
+
+    const maxDuration = theseHangs.sorted('duration', true)[0].duration;
+    console.log('now max durawtion?');
+    console.log(maxDuration);
+
+
     //this automatically stops when it gets to 0.
       const timer = setInterval(() => {
         (this.setState({ timer: this.state.timer - 1 }));
