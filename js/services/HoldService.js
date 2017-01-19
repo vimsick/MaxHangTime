@@ -65,9 +65,32 @@ const HoldService = {
         holdlist.push(hang);
       });
     }
-  }
+  },
+  deleteAll() {
+    holdData.write(() => {
+      const allHolds = holdData.objects('Hold');
+      holdData.delete(allHolds);
+    });
+
+    // populate default list of holds, with empty data.
+    HoldService.save(new HoldModel('Small Crimp'));
+    HoldService.save(new HoldModel('Medium Crimp'));
+    HoldService.save(new HoldModel('Sloper'));
+  },
+  
+  // TODO: do I want to let them delete all data associated with one hold?
+  // deleteHold(hold){
+  //   holdData.write(() => {
+  //     // Create a book object
+  //     let book = realm.create('Book', {id: 1, title: 'Recipes', price: 35});
+  //
+  //     // Delete the book
+  //     realm.delete(book);
+  //   });
+  // }
 };
 
+//my default holds!
 HoldService.save(new HoldModel('Small Crimp'));
 HoldService.save(new HoldModel('Medium Crimp'));
 HoldService.save(new HoldModel('Sloper'));

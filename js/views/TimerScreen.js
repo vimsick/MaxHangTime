@@ -98,6 +98,7 @@ class TimerScreen extends Component {
       this.setState({
         // countdown: false,
         title: 'Good Work!',
+        subtitle: '',
         timer: '',
       })
     } else {

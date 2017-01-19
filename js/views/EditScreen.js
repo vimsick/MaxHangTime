@@ -10,6 +10,7 @@ import {
   Text,
   View,
   TouchableHighlight,
+  Alert,
 } from 'react-native';
 
 import defaults from '../services/defaults';
@@ -29,19 +30,30 @@ export default class EditScreen extends Component {
 
   onDeletePressed() {
     console.log('>>> Delete Button Pressed!');
+    HoldService.deleteAll(); 
   }
 
   render() {
+    const alertMessage = 'Are you sure you want to delete all your data?';
+
     return (
       <View style={styles.container}>
         <View style={styles.flowRight}>
           <TouchableHighlight
             style={[styles.button, styles.stopButton]}
             underlayColor='#90ee90'
-            onPress={this.onDeletePressed.bind(this)}
+            // onPress={this.onDeletePressed.bind(this)}
+            onPress={() => Alert.alert(
+              'Confirm Delete',
+              alertMessage,
+              [
+                { text: 'Cancel', onPress: () => console.log('Cancel Pressed!') },
+                { text: 'OK', onPress: () => { this.onDeletePressed(); } },
+              ]
+            )}
           >
             <Text style={styles.buttonText}>
-              Delete Data
+              Delete All Data
             </Text>
           </TouchableHighlight>
         </View>
