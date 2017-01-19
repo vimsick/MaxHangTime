@@ -1,9 +1,9 @@
 import Utils from '../Utils';
 
 class HangModel {
-  constructor(duration) {
+  constructor(date, duration) {
     this.id = Utils.guid();
-    this.date = new Date();
+    this.date = date;
     this.duration = duration || 0;
   }
 }

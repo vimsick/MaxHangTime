@@ -16,12 +16,14 @@ import defaults from '../services/defaults';
 import HoldService from '../services/HoldService';
 
 const dataList = HoldService.findAll();
+const smallCrimp = dataList.filtered("name = 'Small Crimp'")[0];
+const sclist = smallCrimp.hangs;
 
 export default class EditScreen extends Component {
   constructor(props) {
-    console.log('>>> Holds!')
-
+    console.log('>>> Holds!');
     console.log(dataList);
+
     super(props);
   }
 

@@ -50,16 +50,29 @@ const HoldService = {
     });
   },
 
-  update(hold, callback) {
-    if (!callback) return;
-    holdData.write(() => {
-      callback();
-    });
+  addHang(holdname, hang) {
+    const hold = this.findAll().filtered(`name = '${holdname}'`)[0];
+
+    // in case string is not a hold name.
+    if (hold !== undefined) {
+      const holdlist = hold.hangs;
+
+      holdData.write(() => {
+        holdlist.push(hang);
+      });
+    }
   }
+
 };
 
 HoldService.save(new HoldModel('Small Crimp'));
 HoldService.save(new HoldModel('Medium Crimp'));
 HoldService.save(new HoldModel('Sloper'));
+
+const hangExample = new HangModel(new Date(2000, 1, 2), 6);
+
+const smallCrimp = 'Small Crimp';
+
+HoldService.addHang(smallCrimp, hangExample);
 
 module.exports = HoldService;
