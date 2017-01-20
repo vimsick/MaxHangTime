@@ -17,9 +17,9 @@ import data from '../services/data';
 import GraphView from '../components/GraphView';
 import HoldService from '../services/HoldService';
 
+const renderIf = require('../services/renderIf');
 const EditScreen = require('./EditScreen');
 const TimerScreen = require('./TimerScreen');
-
 const dataList = HoldService.findAll();
 
 export default class WelcomeScreen extends Component {
@@ -70,26 +70,28 @@ export default class WelcomeScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.graph}>
-          <View style={styles.flowRight}>
-            <Text style={styles.welcome}>
-              Your progress!
-            </Text>
-            <TouchableHighlight
-              style={[styles.button, styles.buttonEdit]}
-              underlayColor='#99d9f4'
-              onPress={this.viewNextHold.bind(this)}
-            >
-              <Text style={styles.buttonText}>
-                See Next
+        { renderIf((this.state.data[1] !== undefined),
+          <View style={styles.graph}>
+            <View style={styles.flowRight}>
+              <Text style={styles.welcome}>
+                Your progress!
               </Text>
-            </TouchableHighlight>
-          </View>
-          <GraphView
-            name={this.state.hold}
-            data={this.state.data}
-          />
-        </View>
+              <TouchableHighlight
+                style={[styles.button, styles.buttonEdit]}
+                underlayColor='#99d9f4'
+                onPress={this.viewNextHold.bind(this)}
+              >
+                <Text style={styles.buttonText}>
+                  See Next
+                </Text>
+              </TouchableHighlight>
+            </View>
+              <GraphView
+                name={this.state.hold}
+                data={this.state.data}
+              />
+          </View>)
+        }
         <View style={styles.flowRight}>
           <TouchableHighlight
             style={styles.button}

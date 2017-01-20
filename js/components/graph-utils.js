@@ -52,10 +52,10 @@ export function createLineGraph({
   width,
   height,
 }) {
-  console.log('>>>2');
-  console.log(data);
-  console.log(data.length);
-  console.log(data[1]); 
+  if (data[0] === undefined) {
+    return false;
+  }
+
   const lastDatum = data[data.length - 1];
 
   const scaleX = createScaleX(
