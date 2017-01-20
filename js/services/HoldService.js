@@ -1,6 +1,5 @@
 import Realm from 'realm';
 import HoldModel from './models/hold';
-import HangModel from './models/hang';
 
 const HangSchema = {
   name: 'Hang',
@@ -77,7 +76,7 @@ const HoldService = {
     HoldService.save(new HoldModel('Medium Crimp'));
     HoldService.save(new HoldModel('Sloper'));
   },
-  
+
   // TODO: do I want to let them delete all data associated with one hold?
   // deleteHold(hold){
   //   holdData.write(() => {
@@ -89,10 +88,5 @@ const HoldService = {
   //   });
   // }
 };
-
-//my default holds!
-HoldService.save(new HoldModel('Small Crimp'));
-HoldService.save(new HoldModel('Medium Crimp'));
-HoldService.save(new HoldModel('Sloper'));
 
 module.exports = HoldService;

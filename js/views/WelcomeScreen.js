@@ -70,7 +70,7 @@ export default class WelcomeScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        { renderIf((this.state.data[1] !== undefined),
+        { renderIf((this.state.data[0] !== undefined),
           <View style={styles.graph}>
             <View style={styles.flowRight}>
               <Text style={styles.welcome}>

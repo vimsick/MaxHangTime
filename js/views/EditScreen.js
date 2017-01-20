@@ -15,6 +15,7 @@ import {
 
 import defaults from '../services/defaults';
 import HoldService from '../services/HoldService';
+import HoldModel from '../services/models/hold';
 
 const dataList = HoldService.findAll();
 const smallCrimp = dataList.filtered("name = 'Small Crimp'")[0];
@@ -30,7 +31,10 @@ export default class EditScreen extends Component {
 
   onDeletePressed() {
     console.log('>>> Delete Button Pressed!');
-    HoldService.deleteAll(); 
+    HoldService.deleteAll();
+
+    //NOTE: this is broken, because the welcome screen is still referencing the deleted data.
+    // this.props.navigator.pop();
   }
 
   render() {
