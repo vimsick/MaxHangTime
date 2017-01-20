@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableHighlight
+  TouchableHighlight,
 } from 'react-native';
 
 import Clock from '../components/clock';
@@ -14,7 +14,6 @@ import defaults from '../services/defaults';
 
 const renderIf = require('../services/renderIf');
 const formatHangs = require('../services/formatHangs');
-const moment = require('moment');
 
 
 class TimerScreen extends Component {
@@ -24,7 +23,7 @@ class TimerScreen extends Component {
       countdown: true,
       timer: this.props.startCount,
       title: 'Get Ready!',
-      subtitle: `Next Up: ${defaults.workout[0]}`,
+      subtitle: `Next Up: ${this.props.workout[0]}`,
       holdIndex: 0,
     };
   }
@@ -34,7 +33,7 @@ class TimerScreen extends Component {
     const thisHold = HoldService.find(hold);
     console.log('in max duration');
     console.log(hold.hangs);
-    
+
     //TODO: check if there are holds - if not, should seed database with defaults.
 
     if (thisHold.hangs[0] !== undefined) {
@@ -55,9 +54,9 @@ class TimerScreen extends Component {
         (this.setState({ timer: this.state.timer - 1 }));
         if (this.state.timer <= 0) {
           this.setState({
-            title: defaults.workout[this.state.holdIndex],
+            title: this.props.workout[this.state.holdIndex],
             countdown: false,
-            subtitle: `Your Best Time is: ${this.maxDuration(defaults.workout[this.state.holdIndex])}`,
+            subtitle: `Your Best Time is: ${this.maxDuration(this.props.workout[this.state.holdIndex])}`,
             holdIndex: this.state.holdIndex + 1,
           });
           clearInterval(timer);
@@ -99,7 +98,7 @@ class TimerScreen extends Component {
     console.log('startCountDown called');
     console.log(this.state.holdIndex);
     // if this is the last hold in the series, don't start the countdown again
-    if (typeof defaults.workout[this.state.holdIndex] === 'undefined') {
+    if (typeof this.props.workout[this.state.holdIndex] === 'undefined') {
       clearInterval(this.myCounter);
       this.setState({
         // countdown: false,
@@ -111,7 +110,7 @@ class TimerScreen extends Component {
         this.myCounter = this.countdown();
         this.setState({
           title: 'Resting',
-          subtitle: `Next up: ${defaults.workout[this.state.holdIndex]}`
+          subtitle: `Next up: ${this.props.workout[this.state.holdIndex]}`
         });
     }
   }

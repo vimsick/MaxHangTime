@@ -10,6 +10,7 @@ import {
   Text,
   View,
   TouchableHighlight,
+  AsyncStorage
 } from 'react-native';
 
 import defaults from '../services/defaults';
@@ -30,11 +31,33 @@ export default class WelcomeScreen extends Component {
       hold: data[this.holdIndex].name,
       data: data[this.holdIndex].hangs,
     };
+    AsyncStorage.setItem('workout', "['Small Crimp', 'Medium Crimp', 'Sloper']");
+    AsyncStorage.setItem('restBetweenHolds', '3');
+  }
+
+  componentWillMount() {
+    AsyncStorage.getItem('workout').then((token) => {
+      let t = token;
+      t = t.replace(/'/g, '"');
+      t = JSON.parse(t);
+      this.setState({
+        workout: t
+      });
+    });
+
+    AsyncStorage.getItem('restBetweenHolds').then((token) => {
+      let t = token;
+      t = t.replace(/'/g, '"');
+      t = JSON.parse(t);
+      this.setState({
+        restBetweenHolds: t
+      });
+    });
   }
 
   onStartPressed() {
     console.log('>>> Start Button Pressed!');
-    this._startRoutine(defaults.workout[0]); //will probably need to pass in the first timer or the collection of timers.
+    this._startRoutine(this.state.workout[0]); //will probably need to pass in the first timer or the collection of timers.
   }
 
   onEditPressed() {
@@ -56,7 +79,12 @@ export default class WelcomeScreen extends Component {
     this.props.navigator.push({
       title: 'Countdown',
       component: TimerScreen,
-      passProps: { hold, startCount: 5, restCount: defaults.restBetweenHolds }
+      passProps: {
+        hold,
+        startCount: 5,
+        restCount: this.state.restBetweenHolds,
+        workout: this.state.workout 
+      }
     });
   }
 
@@ -68,6 +96,9 @@ export default class WelcomeScreen extends Component {
   }
 
   render() {
+    console.log('workout from AsyncStorage');
+    console.log(this.state.workout);
+
     return (
       <View style={styles.container}>
         { renderIf((this.state.data[0] !== undefined),
