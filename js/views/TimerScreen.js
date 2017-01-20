@@ -30,19 +30,25 @@ class TimerScreen extends Component {
   }
 
   maxDuration(hold) {
-    // return maxDuration;
+    //returns the hold and list of hangs for this hold from realm.
+    const thisHold = HoldService.find(hold);
+    console.log('in max duration');
+    console.log(hold.hangs);
+    
+    //TODO: check if there are holds - if not, should seed database with defaults.
+
+    if (thisHold.hangs[0] !== undefined) {
+      const theseHangs = thisHold.hangs;
+      const max = theseHangs.sorted('duration', true)[0].duration;
+      console.log('now max durawtion?');
+      console.log(max);
+      return max;
+    }
+    return '-';
   }
 
   countdown() {
     console.log('countdown called');
-    //returns the hold and list of hangs for this hold from realm.
-
-    const thisHold = HoldService.find(defaults.workout[this.state.holdIndex]);
-    const theseHangs = thisHold.hangs;
-
-    const maxDuration = theseHangs.sorted('duration', true)[0].duration;
-    console.log('now max durawtion?');
-    console.log(maxDuration);
 
     //this automatically stops when it gets to 0.
       const timer = setInterval(() => {
@@ -51,7 +57,7 @@ class TimerScreen extends Component {
           this.setState({
             title: defaults.workout[this.state.holdIndex],
             countdown: false,
-            subtitle: `Your Best Time is: ${maxDuration}`,
+            subtitle: `Your Best Time is: ${this.maxDuration(defaults.workout[this.state.holdIndex])}`,
             holdIndex: this.state.holdIndex + 1,
           });
           clearInterval(timer);
