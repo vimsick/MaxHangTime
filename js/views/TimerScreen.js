@@ -10,7 +10,7 @@ import {
 import Clock from '../components/clock';
 import Title from '../components/title';
 import HoldService from '../services/HoldService';
-import defaults from '../services/defaults';
+import HoldModel from '../services/models/hold';
 
 const renderIf = require('../services/renderIf');
 const formatHangs = require('../services/formatHangs');
@@ -30,11 +30,15 @@ class TimerScreen extends Component {
 
   maxDuration(hold) {
     //returns the hold and list of hangs for this hold from realm.
-    const thisHold = HoldService.find(hold);
+    let thisHold = HoldService.find(hold);
+    if (thisHold === undefined) {
+      HoldService.save(new HoldModel(hold));
+      thisHold = HoldService.find(hold);
+    }
+    
     console.log('in max duration');
     console.log(hold.hangs);
 
-    //TODO: check if there are holds - if not, should seed database with defaults.
 
     if (thisHold.hangs[0] !== undefined) {
       const theseHangs = thisHold.hangs;

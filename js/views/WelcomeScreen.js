@@ -13,7 +13,7 @@ import {
   AsyncStorage
 } from 'react-native';
 
-import defaults from '../services/defaults';
+// import defaults from '../services/defaults';
 import data from '../services/data';
 import GraphView from '../components/GraphView';
 import HoldService from '../services/HoldService';
@@ -31,7 +31,9 @@ export default class WelcomeScreen extends Component {
       hold: data[this.holdIndex].name,
       data: data[this.holdIndex].hangs,
     };
-    AsyncStorage.setItem('workout', "['Small Crimp', 'Medium Crimp', 'Sloper']");
+
+    // these are the defaults. need to figure out how to set them only once.
+    AsyncStorage.setItem('workout', "['Small Crimp', 'Medium Crimp', 'Sloper', 'Two-finger Pocket']");
     AsyncStorage.setItem('restBetweenHolds', '3');
   }
 
@@ -83,7 +85,7 @@ export default class WelcomeScreen extends Component {
         hold,
         startCount: 5,
         restCount: this.state.restBetweenHolds,
-        workout: this.state.workout 
+        workout: this.state.workout
       }
     });
   }
