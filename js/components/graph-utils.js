@@ -52,6 +52,10 @@ export function createLineGraph({
   width,
   height,
 }) {
+  console.log('>>>2');
+  console.log(data);
+  console.log(data.length);
+  console.log(data[1]); 
   const lastDatum = data[data.length - 1];
 
   const scaleX = createScaleX(
@@ -72,8 +76,6 @@ export function createLineGraph({
   }, []);
 
   // NOTE: y values look right.
-  console.log('>>>2');
-  console.log(data);
   console.log(allYValues);
 
   // Get the min and max y value.

@@ -28,7 +28,7 @@ export default class WelcomeScreen extends Component {
     this.holdIndex = 0;
     this.state = {
       hold: data[this.holdIndex].name,
-      data: data[this.holdIndex].data,
+      data: data[this.holdIndex].hangs,
     };
   }
 
@@ -39,16 +39,16 @@ export default class WelcomeScreen extends Component {
 
   onEditPressed() {
     console.log('>>> Edit Button Pressed!');
-    this._editRoutine(); 
+    this._editRoutine();
   }
 
   viewNextHold() {
     this.holdIndex += 1;
     if (data[this.holdIndex] === undefined) {
       this.holdIndex = 0;
-      this.setState({ hold: data[this.holdIndex].name, data: data[this.holdIndex].data });
+      this.setState({ hold: data[this.holdIndex].name, data: data[this.holdIndex].hangs });
     } else {
-      this.setState({ hold: data[this.holdIndex].name, data: data[this.holdIndex].data });
+      this.setState({ hold: data[this.holdIndex].name, data: data[this.holdIndex].hangs });
     }
   }
 

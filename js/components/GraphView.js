@@ -16,7 +16,7 @@ import Graph from './Graph';
 export default class GraphView extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
-    data: PropTypes.array.isRequired,
+    data: PropTypes.object.isRequired,
   }
 
   render() {
@@ -31,7 +31,7 @@ export default class GraphView extends Component {
     const graphProps = {};
     graphProps.data = graphData;
     graphProps.xAccessor = (d) => d.date;
-    graphProps.yAccessor = (d) => d.value;
+    graphProps.yAccessor = (d) => d.duration;
 
     return (
       <View style={styles.container}>

@@ -26,7 +26,7 @@ const dimensionWindow = Dimensions.get('window');
 
 export default class Graph extends Component {
   static propTypes = {
-    data: PropTypes.array.isRequired,
+    data: PropTypes.object.isRequired,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
     xAccessor: PropTypes.func.isRequired,
