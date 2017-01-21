@@ -31,11 +31,13 @@ class TimerScreen extends Component {
   maxDuration(hold) {
     //returns the hold and list of hangs for this hold from realm.
     let thisHold = HoldService.find(hold);
+
+    //just in case a hold gets added to the workout and it hasn't been added to the database yet. 
     if (thisHold === undefined) {
       HoldService.save(new HoldModel(hold));
       thisHold = HoldService.find(hold);
     }
-    
+
     console.log('in max duration');
     console.log(hold.hangs);
 
