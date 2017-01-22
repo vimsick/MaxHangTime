@@ -35,7 +35,7 @@ export default class EditScreen extends Component {
 
     AsyncStorage.getItem('restBetweenHolds', (err, result) => {
       if (err) {
-        this.setState({ restBetweenHolds: this.props.restCount });
+        this.setState({ restBetweenHolds: this.props.restBetweenHolds });
       } else {
         this.setState({ restBetweenHolds: parseInt(result, 10) });
       }
@@ -44,7 +44,7 @@ export default class EditScreen extends Component {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     this.state = {
       dataSource: ds.cloneWithRows(this.props.workout),
-      restBetweenHolds: this.props.restCount
+      restBetweenHolds: this.props.restBetweenHolds
     };
   }
 
@@ -68,9 +68,9 @@ export default class EditScreen extends Component {
 
     if (!isNaN(parseInt(time, 10))) {
       //write to Async, otherwise, don't.
+      console.log(time);
 
       AsyncStorage.setItem('restBetweenHolds', time);
-      console.log(time);
     }
   }
 

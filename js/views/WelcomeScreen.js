@@ -21,6 +21,7 @@ import HoldService from '../services/HoldService';
 const renderIf = require('../services/renderIf');
 const EditScreen = require('./EditScreen');
 const TimerScreen = require('./TimerScreen');
+
 const dataList = HoldService.findAll();
 
 export default class WelcomeScreen extends Component {
@@ -43,7 +44,7 @@ export default class WelcomeScreen extends Component {
       t = t.replace(/'/g, '"');
       t = JSON.parse(t);
       this.setState({
-        workout: t
+        workout: t,
       });
     });
 
@@ -59,7 +60,7 @@ export default class WelcomeScreen extends Component {
 
   onStartPressed() {
     console.log('>>> Start Button Pressed!');
-    this._startRoutine(this.state.workout[0]); //will probably need to pass in the first timer or the collection of timers.
+    this._startRoutine(); //will probably need to pass in the first timer or the collection of timers.
   }
 
   onEditPressed() {
@@ -77,15 +78,12 @@ export default class WelcomeScreen extends Component {
     }
   }
 
-  _startRoutine(hold) {
+  _startRoutine() {
     this.props.navigator.push({
       title: 'Countdown',
       component: TimerScreen,
       passProps: {
-        hold,
         startCount: 5,
-        restCount: this.state.restBetweenHolds,
-        workout: this.state.workout
       }
     });
   }
@@ -95,7 +93,7 @@ export default class WelcomeScreen extends Component {
       title: 'Edit Workout',
       component: EditScreen,
       passProps: {
-        restCount: this.state.restBetweenHolds,
+        restBetweenHolds: this.state.restBetweenHolds,
         workout: this.state.workout
       }
     });

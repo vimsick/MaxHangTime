@@ -5,6 +5,7 @@ import {
   Text,
   View,
   TouchableHighlight,
+  AsyncStorage
 } from 'react-native';
 
 import Clock from '../components/clock';
@@ -23,16 +24,52 @@ class TimerScreen extends Component {
       countdown: true,
       timer: this.props.startCount,
       title: 'Get Ready!',
-      subtitle: `Next Up: ${this.props.workout[0]}`,
       holdIndex: 0,
     };
+  }
+
+  componentWillMount() {
+    AsyncStorage.getItem('workout').then((token) => {
+      let t = token;
+      t = t.replace(/'/g, '"');
+      t = JSON.parse(t);
+      this.setState({
+        workout: t,
+        subtitle: `Next Up: ${t[0]}`,
+      });
+    });
+
+    AsyncStorage.getItem('restBetweenHolds').then((token) => {
+      let t = token;
+      t = t.replace(/'/g, '"');
+      t = JSON.parse(t);
+      this.setState({
+        restBetweenHolds: t
+      });
+    });
+  }
+
+  componentDidMount() {
+    //the first time.
+    this.myCounter = this.countdown();
+  }
+
+  componentDidUpdate() {
+    if ((typeof this.state.timer !== 'string') && (this.state.countdown === false) && (this.state.timer <= 1)) {
+      console.log('countdown stopped, start the timer');
+      this.startTimer();
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.myCounter);
   }
 
   maxDuration(hold) {
     //returns the hold and list of hangs for this hold from realm.
     let thisHold = HoldService.find(hold);
 
-    //just in case a hold gets added to the workout and it hasn't been added to the database yet. 
+    //just in case a hold gets added to the workout and it hasn't been added to the database yet.
     if (thisHold === undefined) {
       HoldService.save(new HoldModel(hold));
       thisHold = HoldService.find(hold);
@@ -60,9 +97,9 @@ class TimerScreen extends Component {
         (this.setState({ timer: this.state.timer - 1 }));
         if (this.state.timer <= 0) {
           this.setState({
-            title: this.props.workout[this.state.holdIndex],
+            title: this.state.workout[this.state.holdIndex],
             countdown: false,
-            subtitle: `Your Best Time is: ${this.maxDuration(this.props.workout[this.state.holdIndex])}`,
+            subtitle: `Your Best Time is: ${this.maxDuration(this.state.workout[this.state.holdIndex])}`,
             holdIndex: this.state.holdIndex + 1,
           });
           clearInterval(timer);
@@ -95,7 +132,7 @@ class TimerScreen extends Component {
   stopTimer() {
     console.log('stopTimer called');
     clearInterval(this.myCounter);
-    this.setState({ countdown: true, timer: this.props.restCount });
+    this.setState({ countdown: true, timer: this.state.restBetweenHolds });
 
     this.startCountDown();
   }
@@ -104,7 +141,7 @@ class TimerScreen extends Component {
     console.log('startCountDown called');
     console.log(this.state.holdIndex);
     // if this is the last hold in the series, don't start the countdown again
-    if (typeof this.props.workout[this.state.holdIndex] === 'undefined') {
+    if (typeof this.state.workout[this.state.holdIndex] === 'undefined') {
       clearInterval(this.myCounter);
       this.setState({
         // countdown: false,
@@ -116,7 +153,7 @@ class TimerScreen extends Component {
         this.myCounter = this.countdown();
         this.setState({
           title: 'Resting',
-          subtitle: `Next up: ${this.props.workout[this.state.holdIndex]}`
+          subtitle: `Next up: ${this.state.workout[this.state.holdIndex]}`
         });
     }
   }
@@ -139,22 +176,6 @@ class TimerScreen extends Component {
   onSeeProgress() {
     console.log('>>see progress button pressed!')
     this.props.navigator.pop();
-  }
-
-  componentDidMount() {
-    //the first time.
-    this.myCounter = this.countdown();
-  }
-
-  componentDidUpdate() {
-    if ((typeof this.state.timer !== 'string') && (this.state.countdown === false) && (this.state.timer <= 1)) {
-      console.log('countdown stopped, start the timer');
-      this.startTimer();
-    }
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.myCounter);
   }
 
   render() {
