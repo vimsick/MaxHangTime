@@ -33,14 +33,6 @@ export default class EditScreen extends Component {
     console.log('>>> Holds!');
     console.log(dataList);
 
-    AsyncStorage.getItem('restBetweenHolds', (err, result) => {
-      if (err) {
-        this.setState({ restBetweenHolds: this.props.restBetweenHolds });
-      } else {
-        this.setState({ restBetweenHolds: parseInt(result, 10) });
-      }
-    });
-
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     this.state = {
       dataSource: ds.cloneWithRows(this.props.workout),
@@ -69,7 +61,6 @@ export default class EditScreen extends Component {
     if (!isNaN(parseInt(time, 10))) {
       //write to Async, otherwise, don't.
       console.log(time);
-
       AsyncStorage.setItem('restBetweenHolds', time);
     }
   }
@@ -103,13 +94,13 @@ export default class EditScreen extends Component {
           Rest Between Holds
         </Text>
         <View style={styles.flowRight}>
-        <TextInput
-          style={styles.numberEntry}
-          maxLength={3}
-          value={(this.state.restBetweenHolds).toString()}
-          placeholder='sec'
-          onChange={this.changeRestTime.bind(this)}
-        />
+          <TextInput
+            style={styles.numberEntry}
+            maxLength={3}
+            value={(this.state.restBetweenHolds).toString()}
+            placeholder='sec'
+            onChange={this.changeRestTime.bind(this)}
+          />
         </View>
         <Text style={styles.header}>
           Number of Reps
@@ -186,12 +177,13 @@ const styles = StyleSheet.create({
     width: 100,
     color: 'white',
     fontSize: 25,
-    textAlign: 'center'
+    textAlign: 'center',
+    alignSelf: 'center'
   },
   flowRight: {
     flexDirection: 'row',
     alignItems: 'center',
-    alignSelf: 'stretch'
+    // alignSelf: 'stretch'
   },
   buttonText: {
     fontSize: 18,
