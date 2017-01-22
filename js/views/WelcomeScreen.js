@@ -38,26 +38,6 @@ export default class WelcomeScreen extends Component {
     // AsyncStorage.setItem('restBetweenHolds', '3');
   }
 
-  componentWillMount() {
-    AsyncStorage.getItem('workout').then((token) => {
-      let t = token;
-      t = t.replace(/'/g, '"');
-      t = JSON.parse(t);
-      this.setState({
-        workout: t,
-      });
-    });
-
-    AsyncStorage.getItem('restBetweenHolds').then((token) => {
-      let t = token;
-      t = t.replace(/'/g, '"');
-      t = JSON.parse(t);
-      this.setState({
-        restBetweenHolds: t
-      });
-    });
-  }
-
   onStartPressed() {
     console.log('>>> Start Button Pressed!');
     this._startRoutine(); //will probably need to pass in the first timer or the collection of timers.
@@ -92,17 +72,10 @@ export default class WelcomeScreen extends Component {
     this.props.navigator.push({
       title: 'Edit Workout',
       component: EditScreen,
-      passProps: {
-        // restBetweenHolds: this.state.restBetweenHolds,
-        workout: this.state.workout
-      }
     });
   }
 
   render() {
-    console.log('workout from AsyncStorage');
-    console.log(this.state.workout);
-
     return (
       <View style={styles.container}>
         { renderIf((this.state.data[0] !== undefined),

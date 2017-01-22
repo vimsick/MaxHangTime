@@ -1,3 +1,4 @@
+'use strict';
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -21,22 +22,22 @@ import {
 import HoldService from '../services/HoldService';
 import HoldModel from '../services/models/hold';
 
+const renderIf = require('../services/renderIf');
+
 // this is just so I can see my database.
 const dataList = HoldService.findAll();
 const smallCrimp = dataList.filtered("name = 'Small Crimp'")[0];
 const sclist = smallCrimp.hangs;
 
-export default class EditScreen extends Component {
+class EditScreen extends Component {
   constructor(props) {
     super(props);
     //this is so I can see my database.
     console.log('>>> Holds!');
     console.log(dataList);
 
-    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     this.state = {
-      dataSource: ds.cloneWithRows(this.props.workout),
-      // restBetweenHolds: this.props.restBetweenHolds
+      workout: ['waiting'] //initial state until data comes back from AsyncStorage.
     };
   }
 
@@ -48,6 +49,37 @@ export default class EditScreen extends Component {
         restBetweenHolds: t //t is a string in this component!
       });
     });
+
+    this._makeListData(); //initial state, gets called again after workout is set from AsyncStorage.
+  }
+
+  componentDidMount() {
+    this._loadInitialState().done();
+  }
+
+  _makeListData(){
+    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+    this.setState({
+      dataSource: ds.cloneWithRows(this.state.workout),
+    });
+  }
+
+  async _loadInitialState() {
+    try {
+      const token = await AsyncStorage.getItem('workout');
+      if (token !== null) {
+        console.log('workout from async on edit');
+        let t = token;
+        t = t.replace(/'/g, '"');
+        t = JSON.parse(t);
+        this.setState({
+          workout: t,
+        });
+        this._makeListData();
+      }
+    } catch (error) {
+      console.log('error getting workout from edit screen');
+    }
   }
 
   onDeletePressed() {
@@ -77,17 +109,18 @@ export default class EditScreen extends Component {
 
   render() {
     const alertMessage = 'Are you sure you want to delete all your data?';
-
+    
     return (
       <ScrollView style={styles.scroll}>
         <View style={styles.container}>
         <Text style={styles.header}>
           Workout
         </Text>
+        { renderIf(this.state.workout !== ['waiting'],
         <ListView
           dataSource={this.state.dataSource}
           renderRow={(rowData) => <Text style={styles.workoutList}>{rowData}</Text>}
-        />
+        />)}
         <View style={styles.flowRight}>
           <TouchableHighlight
             style={styles.button}
