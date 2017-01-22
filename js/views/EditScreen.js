@@ -36,8 +36,18 @@ export default class EditScreen extends Component {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     this.state = {
       dataSource: ds.cloneWithRows(this.props.workout),
-      restBetweenHolds: this.props.restBetweenHolds
+      // restBetweenHolds: this.props.restBetweenHolds
     };
+  }
+
+  componentWillMount() {
+    AsyncStorage.getItem('restBetweenHolds').then((token) => {
+      let t = token;
+      t = t.replace(/'/g, '"');
+      this.setState({
+        restBetweenHolds: t //t is a string in this component!
+      });
+    });
   }
 
   onDeletePressed() {
@@ -97,7 +107,7 @@ export default class EditScreen extends Component {
           <TextInput
             style={styles.numberEntry}
             maxLength={3}
-            value={(this.state.restBetweenHolds).toString()}
+            value={(this.state.restBetweenHolds)}
             placeholder='sec'
             onChange={this.changeRestTime.bind(this)}
           />

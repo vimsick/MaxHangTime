@@ -93,7 +93,7 @@ export default class WelcomeScreen extends Component {
       title: 'Edit Workout',
       component: EditScreen,
       passProps: {
-        restBetweenHolds: this.state.restBetweenHolds,
+        // restBetweenHolds: this.state.restBetweenHolds,
         workout: this.state.workout
       }
     });
