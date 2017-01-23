@@ -18,9 +18,12 @@ import {
   AsyncStorage
 } from 'react-native';
 
+import Swipeout from '@maintained-repos/react-native-swipeout';
+
 // import defaults from '../services/defaults';
 import HoldService from '../services/HoldService';
 import HoldModel from '../services/models/hold';
+
 
 const renderIf = require('../services/renderIf');
 
@@ -107,9 +110,21 @@ class EditScreen extends Component {
     }
   }
 
+  renderRow(rowData) {
+    return (
+    <TouchableHighlight
+      underlayColor='lightblue'
+      onPress={console.log('you pressed a row!')}
+    >
+        <View style={styles.rowContainer}>
+          <Text style={styles.workoutList}> {rowData} </Text>
+        </View>
+    </TouchableHighlight>);
+  }
+
   render() {
     const alertMessage = 'Are you sure you want to delete all your data?';
-    
+
     return (
       <ScrollView style={styles.scroll}>
         <View style={styles.container}>
@@ -119,7 +134,7 @@ class EditScreen extends Component {
         { renderIf(this.state.workout !== ['waiting'],
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={(rowData) => <Text style={styles.workoutList}>{rowData}</Text>}
+          renderRow={this.renderRow.bind(this)}
         />)}
         <View style={styles.flowRight}>
           <TouchableHighlight
@@ -183,6 +198,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  rowContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
