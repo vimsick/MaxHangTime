@@ -123,6 +123,7 @@ class EditScreen extends Component {
     if (index >= 0) {
       arr.splice(index, 1);
       this.setState({ workout: arr });
+      this._makeListData();
     }
   }
 
