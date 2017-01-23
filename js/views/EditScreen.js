@@ -13,8 +13,10 @@ import {
   View,
   ScrollView,
   ListView,
+  Modal,
   TouchableHighlight,
   Alert,
+  Picker,
   AsyncStorage
 } from 'react-native';
 
@@ -40,8 +42,14 @@ class EditScreen extends Component {
     console.log(dataList);
 
     this.state = {
-      workout: ['waiting'] //initial state until data comes back from AsyncStorage.
+      workout: ['waiting'], //initial state until data comes back from AsyncStorage.
+      modalVisible: false,
     };
+  }
+
+  setModalVisible(visible) {
+    console.log('setModalVisible');
+    this.setState({ modalVisible: visible });
   }
 
   componentWillMount() {
@@ -95,6 +103,7 @@ class EditScreen extends Component {
 
   onAddPressed() {
     console.log('add hold pressed!');
+    this.setModalVisible(true);
   }
 
   changeRestTime(event) {
@@ -130,8 +139,18 @@ class EditScreen extends Component {
       arr.splice(index, 1);
       this.setState({ workout: arr });
       this._makeListData();
-      this.changeWorkout(); 
+      this.changeWorkout();
     }
+  }
+
+  addHold(hold) {
+    console.log('add hold');
+    const arr = this.state.workout;
+
+    arr.push(hold);
+    this.setState({ workout: arr });
+    this._makeListData();
+    this.changeWorkout();
   }
 
   renderRow(rowData) {
@@ -151,7 +170,6 @@ class EditScreen extends Component {
         <TouchableHighlight
           underlayColor='lightblue'
           onPress={this.rowPressed.bind(this)}
-          style={{ borderRadius: 10 }}
         >
           <View style={styles.rowContainer}>
             <Text style={styles.workoutList}> {rowData} </Text>
@@ -174,7 +192,48 @@ class EditScreen extends Component {
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderRow.bind(this)}
+          style={{
+              width: 380 }}
         />)}
+        { renderIf(this.state.modalVisible,
+          <View style={{ marginTop: 22, backgroundColor: 'gray', opacity: 20 }}>
+            <Modal
+              animationType={'slide'}
+              transparent={true}
+              visible={this.state.modalVisible}
+              onRequestClose={() => { Alert('Modal has been closed.'); }}
+            >
+            <View style={{ marginTop: 22, backgroundColor: 'gray'}}>
+              <View>
+              <Picker
+                selectedValue={this.state.newHold}
+                onValueChange={(hold) => this.setState({ newHold: hold })}>
+                <Picker.Item label='Small Crimp' value='Small Crimp' />
+                <Picker.Item label='Medium Crimp' value='Medium Crimp' />
+                <Picker.Item label='Shallow 2 Finger Pocket' value='Shallow 2 Finger Pocket' />
+                <Picker.Item label='Medium 2 Finger Pocket' value='Medium 2 Finger Pocket' />
+                <Picker.Item label='Deep 2 Finger Pocket' value='Deep 2 Finger Pocket' />
+                <Picker.Item label='Sloper' value='Sloper' />
+                <Picker.Item label='Jug' value='Jug' />
+              </Picker>
+              <View style={styles.flowRight}>
+                <TouchableHighlight
+                  style={styles.button}
+                  onPress={() => {
+                    this.setModalVisible(!this.state.modalVisible);
+                    this.addHold(this.state.newHold);
+                  }}
+                >
+                  <Text style={styles.buttonText}>
+                    Add Hold to Workout
+                  </Text>
+                </TouchableHighlight>
+              </View> 
+              </View>
+            </View>
+            </Modal>
+          </View>)
+        }
         <View style={styles.flowRight}>
           <TouchableHighlight
             style={styles.button}
@@ -199,13 +258,7 @@ class EditScreen extends Component {
             onChange={this.changeRestTime.bind(this)}
           />
         </View>
-        <Text style={styles.header}>
-          Number of Reps
-        </Text>
-        <Text style={styles.header}>
-          Rest Between Reps
-        </Text>
-        <View style={styles.flowRight}>
+        <View style={[styles.flowRight, styles.delete]}>
           <TouchableHighlight
             style={[styles.button, styles.stopButton]}
             underlayColor='#ff8080'
@@ -238,8 +291,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   rowContainer: {
     flex: 1,
@@ -261,16 +312,16 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'left',
     fontSize: 30,
-    // marginBottom 5,
-    padding: 5,
-    // fontWeight: 'bold',
+    alignSelf: 'center',
+    paddingTop: 5,
+    paddingBottom: 5,
   },
   workoutList: {
     textAlign: 'center',
     color: 'gray',
     marginBottom: 5,
     padding: 5,
-    paddingLeft: 10,
+    // paddingLeft: 10,
     fontSize: 25,
   },
   numberEntry: {
@@ -285,7 +336,7 @@ const styles = StyleSheet.create({
   flowRight: {
     flexDirection: 'row',
     alignItems: 'center',
-    // alignSelf: 'stretch'
+    alignSelf: 'center'
   },
   buttonText: {
     fontSize: 18,
@@ -308,6 +359,13 @@ const styles = StyleSheet.create({
   stopButton: {
     backgroundColor: 'red',
     borderColor: 'red',
+    alignSelf: 'flex-end',
+  },
+  delete: {
+    paddingTop: 120,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    alignSelf: 'flex-end'
   }
 });
 
