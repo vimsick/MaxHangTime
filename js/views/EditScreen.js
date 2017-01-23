@@ -114,6 +114,12 @@ class EditScreen extends Component {
     console.log('row pressed!');
   }
 
+  changeWorkout() {
+    console.log('trying to change the workout!');
+
+    AsyncStorage.setItem('workout', JSON.stringify(this.state.workout));
+  }
+
   deleteHold(hold) {
     console.log('delete hold');
     console.log(hold);
@@ -124,6 +130,7 @@ class EditScreen extends Component {
       arr.splice(index, 1);
       this.setState({ workout: arr });
       this._makeListData();
+      this.changeWorkout(); 
     }
   }
 

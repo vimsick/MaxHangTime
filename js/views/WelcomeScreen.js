@@ -34,8 +34,11 @@ export default class WelcomeScreen extends Component {
     };
 
     // these are the defaults. need to figure out how to set them only once.
-    AsyncStorage.setItem('workout', "['Small Crimp', 'Medium Crimp', 'Sloper', 'Two-finger Pocket', 'Mini Jug', 'Three-finger Pocket']");
-    // AsyncStorage.setItem('restBetweenHolds', '3');
+    AsyncStorage.getItem('workout').then((obj) => {
+      if (obj === undefined) {
+        AsyncStorage.setItem('workout', "['Small Crimp', 'Medium Crimp', 'Sloper', 'Two-finger Pocket', 'Mini Jug', 'Three-finger Pocket']");
+      }
+    });
   }
 
   onStartPressed() {
