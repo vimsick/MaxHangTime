@@ -110,16 +110,47 @@ class EditScreen extends Component {
     }
   }
 
+  rowPressed() {
+    console.log('row pressed!');
+  }
+
+  deleteHold(hold) {
+    console.log('delete hold');
+    console.log(hold);
+    const arr = this.state.workout;
+
+    const index = arr.indexOf(hold);
+    if (index >= 0) {
+      arr.splice(index, 1);
+      this.setState({ workout: arr });
+    }
+  }
+
   renderRow(rowData) {
+    const swipeBtns = [{
+      text: 'Delete',
+      backgroundColor: 'red',
+      underlayColor: 'rgba(0, 0, 1, 0.6)',
+      onPress: () => { this.deleteHold(rowData); }
+    }];
+
     return (
-    <TouchableHighlight
-      underlayColor='lightblue'
-      onPress={console.log('you pressed a row!')}
-    >
-        <View style={styles.rowContainer}>
-          <Text style={styles.workoutList}> {rowData} </Text>
-        </View>
-    </TouchableHighlight>);
+      <Swipeout
+        right={swipeBtns}
+        autoClose={true}
+        backgroundColor='transparent'
+      >
+        <TouchableHighlight
+          underlayColor='lightblue'
+          onPress={this.rowPressed.bind(this)}
+          style={{ borderRadius: 10 }}
+        >
+          <View style={styles.rowContainer}>
+            <Text style={styles.workoutList}> {rowData} </Text>
+          </View>
+        </TouchableHighlight>
+      </Swipeout>
+    );
   }
 
   render() {
