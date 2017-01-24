@@ -68,7 +68,7 @@ class EditScreen extends Component {
     this._loadInitialState().done();
   }
 
-  _makeListData(){
+  _makeListData() {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     this.setState({
       dataSource: ds.cloneWithRows(this.state.workout),
@@ -196,39 +196,51 @@ class EditScreen extends Component {
               width: 380 }}
         />)}
         { renderIf(this.state.modalVisible,
-          <View style={{ marginTop: 22, backgroundColor: 'gray', opacity: 20 }}>
+          <View style={{ flex: 1, marginTop: 22, backgroundColor: 'gray', justifyContent: 'center' }}>
             <Modal
               animationType={'slide'}
               transparent={true}
               visible={this.state.modalVisible}
               onRequestClose={() => { Alert('Modal has been closed.'); }}
             >
-            <View style={{ marginTop: 22, backgroundColor: 'gray'}}>
+            <View style={{ backgroundColor: '#bdbdbd', alignItems: 'center'}}>
               <View>
-              <Picker
-                selectedValue={this.state.newHold}
-                onValueChange={(hold) => this.setState({ newHold: hold })}>
-                <Picker.Item label='Small Crimp' value='Small Crimp' />
-                <Picker.Item label='Medium Crimp' value='Medium Crimp' />
-                <Picker.Item label='Shallow 2 Finger Pocket' value='Shallow 2 Finger Pocket' />
-                <Picker.Item label='Medium 2 Finger Pocket' value='Medium 2 Finger Pocket' />
-                <Picker.Item label='Deep 2 Finger Pocket' value='Deep 2 Finger Pocket' />
-                <Picker.Item label='Sloper' value='Sloper' />
-                <Picker.Item label='Jug' value='Jug' />
-              </Picker>
-              <View style={styles.flowRight}>
-                <TouchableHighlight
-                  style={styles.button}
-                  onPress={() => {
-                    this.setModalVisible(!this.state.modalVisible);
-                    this.addHold(this.state.newHold);
-                  }}
-                >
-                  <Text style={styles.buttonText}>
-                    Add Hold to Workout
-                  </Text>
-                </TouchableHighlight>
-              </View>
+                <Picker
+                  selectedValue={this.state.newHold}
+                  onValueChange={(hold) => this.setState({ newHold: hold })}>
+                  <Picker.Item label='Small Crimp' value='Small Crimp' />
+                  <Picker.Item label='Medium Crimp' value='Medium Crimp' />
+                  <Picker.Item label='Shallow 2 Finger Pocket' value='Shallow 2 Finger Pocket' />
+                  <Picker.Item label='Medium 2 Finger Pocket' value='Medium 2 Finger Pocket' />
+                  <Picker.Item label='Deep 2 Finger Pocket' value='Deep 2 Finger Pocket' />
+                  <Picker.Item label='Sloper' value='Sloper' />
+                  <Picker.Item label='Jug' value='Jug' />
+                </Picker>
+                <View style={[{ backgroundColor: '#bdbdbd' }, styles.flowRight]}>
+                  <TouchableHighlight
+                    style={styles.button}
+                    onPress={() => {
+                      this.setModalVisible(!this.state.modalVisible);
+                      this.addHold(this.state.newHold);
+                    }}
+                  >
+                    <Text style={styles.buttonText}>
+                      Add Hold to Workout
+                    </Text>
+                  </TouchableHighlight>
+                </View>
+                <View style={{ backgroundColor: '#bdbdbd' }}>
+                  <TouchableHighlight
+                    onPress={() => {
+                      this.setModalVisible(!this.state.modalVisible);
+                    }}
+                  >
+                    <Text style={styles.cancelText}>
+                      Cancel
+                    </Text>
+                  </TouchableHighlight>
+                </View>
+
               </View>
             </View>
             </Modal>
@@ -361,6 +373,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
     alignSelf: 'flex-end'
+  },
+  cancelText: {
+    textDecorationLine: 'underline',
+    paddingBottom: 10,
+    color: 'white',
+    alignSelf: 'center',
+    fontFamily: 'Heiti SC',
   }
 });
 
