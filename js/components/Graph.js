@@ -173,6 +173,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     fontSize: 12,
+    fontFamily: 'Heiti SC',
     textAlign: 'center',
     color: Color.White,
   },
@@ -188,6 +189,7 @@ const styles = StyleSheet.create({
   },
   tickLabelYText: {
     fontSize: 12,
+    fontFamily: 'Heiti SC',
     textAlign: 'center',
     color: Color.White,
   },

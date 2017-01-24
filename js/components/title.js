@@ -40,11 +40,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'white',
     fontSize: 30,
+    fontFamily: 'Heiti SC',
+    fontWeight: '400'
   },
   subheaderText: {
     textAlign: 'center',
     color: 'white',
     fontSize: 20,
+    fontFamily: 'Heiti SC'
   }
 });
 module.exports = Title;

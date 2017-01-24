@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
   headerText: {
     color: Color.White,
     fontSize: 24,
+    fontFamily: 'Heiti SC'
   },
   content: {
   flex: 1,

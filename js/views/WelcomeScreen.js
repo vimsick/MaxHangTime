@@ -27,18 +27,20 @@ const dataList = HoldService.findAll();
 export default class WelcomeScreen extends Component {
   constructor(props) {
     super(props);
-    this.holdIndex = 0;
-    this.state = {
-      hold: data[this.holdIndex].name,
-      data: data[this.holdIndex].hangs,
-    };
-
     // these are the defaults. need to figure out how to set them only once.
-    AsyncStorage.getItem('workout').then((obj) => {
-      if (obj === undefined) {
-        AsyncStorage.setItem('workout', "['Small Crimp', 'Medium Crimp', 'Sloper', 'Two-finger Pocket', 'Mini Jug', 'Three-finger Pocket']");
-      }
-    });
+
+    this.holdIndex = 0;
+    if (data[0] !== undefined) {
+      this.state = {
+        hold: data[this.holdIndex].name,
+        data: data[this.holdIndex].hangs,
+      };
+    } else {
+      this.state = {
+        hold: 'default',
+        data: {},
+      };
+    }
   }
 
   onStartPressed() {
@@ -148,7 +150,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
-    color: 'gray'
+    color: 'gray',
+    fontFamily: 'Heiti SC'
   },
   instructions: {
     textAlign: 'center',
@@ -163,14 +166,16 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     color: 'white',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    fontFamily: 'Heiti SC',
+    fontWeight: '400'
   },
   button: {
     height: 50,
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#00ff7f',
-    borderColor: '#00ff7f',
+    backgroundColor: '#3ae05b',
+    borderColor: '#3ae05b',
     borderWidth: 1,
     borderRadius: 15,
     // marginBottom: 10,

@@ -248,7 +248,9 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     color: 'white',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    fontFamily: 'Heiti SC',
+    fontWeight: '400'
   },
   button: {
     height: 50,

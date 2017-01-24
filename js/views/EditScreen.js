@@ -30,16 +30,16 @@ import HoldModel from '../services/models/hold';
 const renderIf = require('../services/renderIf');
 
 // this is just so I can see my database.
-const dataList = HoldService.findAll();
-const smallCrimp = dataList.filtered("name = 'Small Crimp'")[0];
-const sclist = smallCrimp.hangs;
+// const dataList = HoldService.findAll();
+// const smallCrimp = dataList.filtered("name = 'Small Crimp'")[0];
+// const sclist = smallCrimp.hangs;
 
 class EditScreen extends Component {
   constructor(props) {
     super(props);
     //this is so I can see my database.
     console.log('>>> Holds!');
-    console.log(dataList);
+    // console.log(dataList);
 
     this.state = {
       workout: ['waiting'], //initial state until data comes back from AsyncStorage.
@@ -228,7 +228,7 @@ class EditScreen extends Component {
                     Add Hold to Workout
                   </Text>
                 </TouchableHighlight>
-              </View> 
+              </View>
               </View>
             </View>
             </Modal>
@@ -297,17 +297,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-    color: 'gray'
-  },
-  timers: {
-    flex: 3,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
   header: {
     color: 'white',
     textAlign: 'left',
@@ -315,6 +304,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingTop: 5,
     paddingBottom: 5,
+    fontFamily: 'Heiti SC',
+    fontWeight: '400'
   },
   workoutList: {
     textAlign: 'center',
@@ -323,6 +314,7 @@ const styles = StyleSheet.create({
     padding: 5,
     // paddingLeft: 10,
     fontSize: 25,
+    fontFamily: 'Heiti SC'
   },
   numberEntry: {
     backgroundColor: 'gray',
@@ -331,7 +323,8 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 25,
     textAlign: 'center',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    fontFamily: 'Heiti SC',
   },
   flowRight: {
     flexDirection: 'row',
@@ -341,7 +334,9 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     color: 'white',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    fontFamily: 'Heiti SC',
+    fontWeight: '400'
   },
   button: {
     height: 50,

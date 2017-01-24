@@ -11,7 +11,7 @@ class Clock extends Component {
 
   render() {
     const display = this.props.display;
-    console.log('clock being rendered'); 
+    console.log('clock being rendered');
     console.log(display);
     return (
         <Text style={styles.clock}>
@@ -30,7 +30,9 @@ const styles = StyleSheet.create({
   clock: {
     textAlign: 'center',
     color: 'white',
-    fontSize: 30,
+    fontSize: 60,
+    fontFamily: 'Heiti SC',
+    fontWeight: '500'
   }
 });
 module.exports = Clock;
