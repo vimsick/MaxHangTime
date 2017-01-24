@@ -181,10 +181,10 @@ class TimerScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-            <Title
-              header={this.state.title}
-              subheader={this.state.subtitle}
-            />
+        <Title
+          header={this.state.title}
+          subheader={this.state.subtitle}
+        />
         <View style={styles.timers}>
           <Clock
             display={this.state.timer}
@@ -211,6 +211,8 @@ class TimerScreen extends Component {
               </Text>
             </TouchableHighlight>
          )}
+         { renderIf((this.state.title !== 'Good Work!') && this.state.countdown,
+        <View style={{ height: 70 }} />) }
         </View>
       </View>
     );
