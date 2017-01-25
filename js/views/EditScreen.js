@@ -26,7 +26,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 // import defaults from '../services/defaults';
 import HoldService from '../services/HoldService';
 import HoldModel from '../services/models/hold';
-import DeleteButton from '../components/deleteButton';
 
 const renderIf = require('../services/renderIf');
 
