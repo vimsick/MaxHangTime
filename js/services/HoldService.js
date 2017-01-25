@@ -72,9 +72,9 @@ const HoldService = {
     });
 
     // populate default list of holds, with empty data.
-    HoldService.save(new HoldModel('Small Crimp'));
-    HoldService.save(new HoldModel('Medium Crimp'));
-    HoldService.save(new HoldModel('Sloper'));
+    // HoldService.save(new HoldModel('Small Crimp'));
+    // HoldService.save(new HoldModel('Medium Crimp'));
+    // HoldService.save(new HoldModel('Sloper'));
   },
 
   // TODO: do I want to let them delete all data associated with one hold?

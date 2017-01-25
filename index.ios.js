@@ -23,7 +23,7 @@ export default class MaxHangTime extends Component {
     // this seems to load them when the app loads, and not overwrite them if there's already a routine?
     AsyncStorage.getItem('workout').then((obj) => {
       if (obj === undefined) {
-        AsyncStorage.setItem('workout', "['Small Crimp', 'Medium Crimp', 'Sloper', 'Two-finger Pocket', 'Jug']");
+        AsyncStorage.setItem('workout', "['Edge: Deep', 'Edge: Shallow', 'Jug', 'Pinch',   'Pocket: Medium']");
 
         AsyncStorage.setItem('restBetweenHolds', '3');
       }

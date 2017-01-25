@@ -220,13 +220,25 @@ class EditScreen extends Component {
                 <Picker
                   selectedValue={this.state.newHold}
                   onValueChange={(hold) => this.setState({ newHold: hold })}>
-                  <Picker.Item label='Small Crimp' value='Small Crimp' />
-                  <Picker.Item label='Medium Crimp' value='Medium Crimp' />
-                  <Picker.Item label='Shallow 2 Finger Pocket' value='Shallow 2 Finger Pocket' />
-                  <Picker.Item label='Medium 2 Finger Pocket' value='Medium 2 Finger Pocket' />
-                  <Picker.Item label='Deep 2 Finger Pocket' value='Deep 2 Finger Pocket' />
-                  <Picker.Item label='Sloper' value='Sloper' />
+
+
+                  <Picker.Item label='Edge' value='Edge' />
+                  <Picker.Item label='Edge: 4 Finger' value='Edge: 4 Finger' />
+                  <Picker.Item label='Edge: Deep' value='Edge: Deep' />
+                  <Picker.Item label='Edge: Medium' value='Edge: Medium' />
+                  <Picker.Item label='Edge: Shallow' value='Edge: Shallow' />
                   <Picker.Item label='Jug' value='Jug' />
+                  <Picker.Item label='Pinch' value='Pinch' />
+                  <Picker.Item label='Pocket: Deep 3 Finger' value='Pocket: Deep 3 Finger' />
+                  <Picker.Item label='Pocket: Medium' value='Pocket: Medium' />
+                  <Picker.Item label='Pocket: Medium 3 Finger' value='Pocket: Medium 3 Finger' />
+                  <Picker.Item label='Pocket: Shallow 3 Finger' value='Pocket: Shallow 3 Finger' />
+                  <Picker.Item label='Pocket: Shallow 2 Finger' value='Pocket: Shallow 2 Finger' />
+                  <Picker.Item label='Pocket: 3 Finger' value='Pocket: 3 Finger' />
+                  <Picker.Item label='Pocket: 2 Finger' value='Pocket: 2 Finger' />
+                  <Picker.Item label='Sloper: Flat' value='Sloper: Flat' />
+                  <Picker.Item label='Sloper: Round' value='Sloper: Round' />                  
+
                 </Picker>
                 <View style={[{ backgroundColor: '#bdbdbd' }, styles.flowRight]}>
                   <TouchableHighlight

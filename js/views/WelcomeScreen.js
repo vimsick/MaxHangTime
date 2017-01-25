@@ -41,6 +41,20 @@ export default class WelcomeScreen extends Component {
     }
   }
 
+  componentWillReceiveProps() {
+    if (data[0] !== undefined) {
+      this.state = {
+        hold: data[this.holdIndex].name,
+        data: data[this.holdIndex].hangs,
+      };
+    } else {
+      this.state = {
+        hold: 'default',
+        data: {},
+      };
+    }
+  }
+
   onStartPressed() {
     console.log('>>> Start Button Pressed!');
     this._startRoutine(); //will probably need to pass in the first timer or the collection of timers.
@@ -86,7 +100,7 @@ export default class WelcomeScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-
+        { renderIf((this.state.hold !== 'default'),
           <View style={styles.graph}>
             <View style={styles.flowRight}>
               <Text style={styles.welcome}>
@@ -107,7 +121,7 @@ export default class WelcomeScreen extends Component {
                 data={this.state.data}
             />
           </View>
-
+        )}
         <View style={styles.flowRight}>
           <TouchableHighlight
             style={styles.button}
