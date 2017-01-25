@@ -32,7 +32,7 @@ const renderIf = require('../services/renderIf');
 const trashIcon = (<Icon name="trash" size={20} color="white" />);
 
 // this is just so I can see my database.
-// const dataList = HoldService.findAll();
+const dataList = HoldService.findAll();
 // const smallCrimp = dataList.filtered("name = 'Small Crimp'")[0];
 // const sclist = smallCrimp.hangs;
 
@@ -41,7 +41,7 @@ class EditScreen extends Component {
     super(props);
     //this is so I can see my database.
     console.log('>>> Holds!');
-    // console.log(dataList);
+    console.log(dataList);
 
     this.state = {
       workout: ['waiting'], //initial state until data comes back from AsyncStorage.
@@ -98,6 +98,13 @@ class EditScreen extends Component {
   onDeletePressed() {
     console.log('>>> Delete Button Pressed!');
     HoldService.deleteAll();
+
+    // set the current routine to defaults
+    AsyncStorage.setItem('workout', "['Edge: Deep', 'Edge: Shallow', 'Jug', 'Pinch',   'Pocket: Medium']");
+
+    AsyncStorage.setItem('restBetweenHolds', '3');
+
+    this._loadInitialState();
 
     //NOTE: this is broken, because the welcome screen is still referencing the deleted data.
     // this.props.navigator.pop();
@@ -192,7 +199,7 @@ class EditScreen extends Component {
   }
 
   render() {
-    const alertMessage = 'Are you sure you want to delete all your data?';
+    const alertMessage = 'Are you sure you want to delete all your data? This will remove any saved hang data, and reset your routine to the default.';
 
     return (
       <ScrollView style={styles.scroll}>
@@ -237,7 +244,7 @@ class EditScreen extends Component {
                   <Picker.Item label='Pocket: 3 Finger' value='Pocket: 3 Finger' />
                   <Picker.Item label='Pocket: 2 Finger' value='Pocket: 2 Finger' />
                   <Picker.Item label='Sloper: Flat' value='Sloper: Flat' />
-                  <Picker.Item label='Sloper: Round' value='Sloper: Round' />                  
+                  <Picker.Item label='Sloper: Round' value='Sloper: Round' />
 
                 </Picker>
                 <View style={[{ backgroundColor: '#bdbdbd' }, styles.flowRight]}>

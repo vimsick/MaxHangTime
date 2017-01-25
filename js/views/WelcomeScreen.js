@@ -57,7 +57,7 @@ export default class WelcomeScreen extends Component {
 
   onStartPressed() {
     console.log('>>> Start Button Pressed!');
-    this._startRoutine(); //will probably need to pass in the first timer or the collection of timers.
+    this._startRoutine();
   }
 
   onEditPressed() {
@@ -69,15 +69,15 @@ export default class WelcomeScreen extends Component {
     this.holdIndex += 1;
     if (data[this.holdIndex] === undefined) {
       this.holdIndex = 0;
-      this.setState({ hold: data[this.holdIndex].name, data: data[this.holdIndex].hangs });
+      this.setState({ hold: data[this.holdIndex].name, data: data[this.holdIndex].hangs.sorted('date') });
     } else {
-      this.setState({ hold: data[this.holdIndex].name, data: data[this.holdIndex].hangs });
+      this.setState({ hold: data[this.holdIndex].name, data: data[this.holdIndex].hangs.sorted('date') });
     }
   }
 
   viewFirstHold() {
     this.holdIndex = 0;
-    this.setState({ hold: data[this.holdIndex].name, data: data[this.holdIndex].hangs });
+    this.setState({ hold: data[this.holdIndex].name, data: data[this.holdIndex].hangs.sorted('date') });
   }
 
   _startRoutine() {
@@ -106,15 +106,17 @@ export default class WelcomeScreen extends Component {
               <Text style={styles.welcome}>
                 Your progress!
               </Text>
-              <TouchableHighlight
-                style={[styles.button, styles.buttonEdit]}
-                underlayColor='#99d9f4'
-                onPress={this.viewNextHold.bind(this)}
-              >
-                <Text style={styles.buttonText}>
-                  See Next
-                </Text>
-              </TouchableHighlight>
+              { renderIf((data.length > 1),
+                <TouchableHighlight
+                  style={[styles.button, styles.buttonEdit]}
+                  underlayColor='#99d9f4'
+                  onPress={this.viewNextHold.bind(this)}
+                >
+                  <Text style={styles.buttonText}>
+                    See Next
+                  </Text>
+                </TouchableHighlight>
+              )}
             </View>
             <GraphView
                 name={this.state.hold}
