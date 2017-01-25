@@ -133,7 +133,17 @@ class EditScreen extends Component {
     console.log('delete hold');
     console.log(hold);
     const arr = this.state.workout;
-
+    const alertMessage = 'You need to keep at least one hold in your routine. If you want a different hold, first add the new hold, then delete this one.'
+    if (arr.length === 1) {
+      Alert.alert(
+        'Error',
+        alertMessage,
+        [
+          { text: 'OK', onPress: () => console.log('Error Dismissed!') },
+        ]
+      ); 
+      return;
+    }
     const index = arr.indexOf(hold);
     if (index >= 0) {
       arr.splice(index, 1);
