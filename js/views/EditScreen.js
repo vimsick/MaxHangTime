@@ -21,13 +21,16 @@ import {
 } from 'react-native';
 
 import Swipeout from '@maintained-repos/react-native-swipeout';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 // import defaults from '../services/defaults';
 import HoldService from '../services/HoldService';
 import HoldModel from '../services/models/hold';
-
+import DeleteButton from '../components/deleteButton';
 
 const renderIf = require('../services/renderIf');
+
+const trashIcon = (<Icon name="trash" size={20} color="white" />);
 
 // this is just so I can see my database.
 // const dataList = HoldService.findAll();
@@ -141,7 +144,7 @@ class EditScreen extends Component {
         [
           { text: 'OK', onPress: () => console.log('Error Dismissed!') },
         ]
-      ); 
+      );
       return;
     }
     const index = arr.indexOf(hold);
@@ -165,7 +168,7 @@ class EditScreen extends Component {
 
   renderRow(rowData) {
     const swipeBtns = [{
-      text: 'Delete',
+      component: <View style={styles.rowContainer}><Text style={styles.swipeText}>{trashIcon}</Text></View>,
       backgroundColor: 'red',
       underlayColor: 'rgba(0, 0, 1, 0.6)',
       onPress: () => { this.deleteHold(rowData); }
@@ -196,7 +199,7 @@ class EditScreen extends Component {
       <ScrollView style={styles.scroll}>
         <View style={styles.container}>
         <Text style={styles.header}>
-          Workout
+          Routine
         </Text>
         { renderIf(this.state.workout !== ['waiting'],
         <ListView
@@ -390,7 +393,13 @@ const styles = StyleSheet.create({
     color: 'white',
     alignSelf: 'center',
     fontFamily: 'Heiti SC',
-  }
+  },
+  swipeText: {
+    textAlign: 'center',
+    color: 'white',
+    fontFamily: 'Heiti SC',
+    fontWeight: '400'
+  },
 });
 
 module.exports = EditScreen;
