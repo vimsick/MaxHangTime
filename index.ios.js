@@ -20,16 +20,15 @@ const WelcomeScreen = require('./js/views/WelcomeScreen');
 export default class MaxHangTime extends Component {
 
   render() {
-    // this seems to load them when the app loads (if you don't force close the app and reopen, then it doesn't overwite them.)
-
-    // AsyncStorage.getItem('workout').then((obj) => {
-    //   if (obj === undefined) {
-        AsyncStorage.setItem('workout', "['Small Crimp', 'Medium Crimp', 'Sloper', 'Two-finger Pocket', 'Mini Jug', 'Three-finger Pocket']");
+    // this seems to load them when the app loads, and not overwrite them if there's already a routine?
+    AsyncStorage.getItem('workout').then((obj) => {
+      if (obj === undefined) {
+        AsyncStorage.setItem('workout', "['Small Crimp', 'Medium Crimp', 'Sloper', 'Two-finger Pocket', 'Jug']");
 
         AsyncStorage.setItem('restBetweenHolds', '3');
-      // }
-      // console.log(AsyncStorage.getItem('workout'));
-    // });
+      }
+      console.log(AsyncStorage.getItem('workout'));
+    });
     return (
       <NavigatorIOS
         style={styles.container}

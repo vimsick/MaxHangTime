@@ -10,7 +10,6 @@ import {
   Text,
   View,
   TouchableHighlight,
-  AsyncStorage
 } from 'react-native';
 
 // import defaults from '../services/defaults';
@@ -22,7 +21,6 @@ const renderIf = require('../services/renderIf');
 const EditScreen = require('./EditScreen');
 const TimerScreen = require('./TimerScreen');
 
-const dataList = HoldService.findAll();
 
 export default class WelcomeScreen extends Component {
   constructor(props) {
@@ -63,6 +61,11 @@ export default class WelcomeScreen extends Component {
     }
   }
 
+  viewFirstHold() {
+    this.holdIndex = 0;
+    this.setState({ hold: data[this.holdIndex].name, data: data[this.holdIndex].hangs });
+  }
+
   _startRoutine() {
     this.props.navigator.push({
       title: 'Countdown',
@@ -83,7 +86,7 @@ export default class WelcomeScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        { renderIf((this.state.data[0] !== undefined),
+
           <View style={styles.graph}>
             <View style={styles.flowRight}>
               <Text style={styles.welcome}>
@@ -99,12 +102,12 @@ export default class WelcomeScreen extends Component {
                 </Text>
               </TouchableHighlight>
             </View>
-              <GraphView
+            <GraphView
                 name={this.state.hold}
                 data={this.state.data}
-              />
-          </View>)
-        }
+            />
+          </View>
+
         <View style={styles.flowRight}>
           <TouchableHighlight
             style={styles.button}
