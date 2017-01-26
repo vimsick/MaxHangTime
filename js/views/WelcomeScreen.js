@@ -73,7 +73,7 @@ export default class WelcomeScreen extends Component {
 
   _startRoutine() {
     this.props.navigator.push({
-      title: 'Countdown',
+      title: 'Timer',
       component: TimerScreen,
       passProps: {
         startCount: 5,
