@@ -56,7 +56,6 @@ class TimerScreen extends Component {
 
   componentDidUpdate() {
     if ((typeof this.state.timer !== 'string') && (this.state.countdown === false) && (this.state.timer <= 1)) {
-      console.log('countdown stopped, start the timer');
       this.startTimer();
     }
   }
