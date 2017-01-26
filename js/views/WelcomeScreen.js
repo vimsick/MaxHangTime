@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -15,7 +9,6 @@ import {
 // import defaults from '../services/defaults';
 import data from '../services/data';
 import GraphView from '../components/GraphView';
-import HoldService from '../services/HoldService';
 
 const renderIf = require('../services/renderIf');
 const EditScreen = require('./EditScreen');
@@ -56,12 +49,10 @@ export default class WelcomeScreen extends Component {
   }
 
   onStartPressed() {
-    console.log('>>> Start Button Pressed!');
     this._startRoutine();
   }
 
   onEditPressed() {
-    console.log('>>> Edit Button Pressed!');
     this._editRoutine();
   }
 

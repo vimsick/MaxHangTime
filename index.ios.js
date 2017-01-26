@@ -1,16 +1,7 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  Text,
-  View,
-  TouchableHighlight,
   NavigatorIOS,
   AsyncStorage
 } from 'react-native';
@@ -20,11 +11,13 @@ const WelcomeScreen = require('./js/views/WelcomeScreen');
 export default class MaxHangTime extends Component {
 
   render() {
-    // this seems to load them when the app loads, and not overwrite them if there's already a routine?
+    // load data when app loads, do not overwrite them if there's already a routine
     AsyncStorage.getItem('workout').then((obj) => {
       if (obj === undefined) {
+        // default workout
         AsyncStorage.setItem('workout', "['Edge: Deep', 'Edge: Shallow', 'Jug', 'Pinch',   'Pocket: Medium']");
 
+        // default rest between holds
         AsyncStorage.setItem('restBetweenHolds', '3');
       }
       console.log(AsyncStorage.getItem('workout'));
@@ -32,7 +25,6 @@ export default class MaxHangTime extends Component {
     return (
       <NavigatorIOS
         style={styles.container}
-        // navigationBarHidden={true}
         barTintColor='#2f4f4f'
         initialRoute={{
           title: 'Welcome',

@@ -35,7 +35,7 @@ class TimerScreen extends Component {
       t = JSON.parse(t);
       this.setState({
         workout: t,
-        subtitle: `Next Up: ${t[0]}`,
+        subtitle: `Next Up! ${t[0]}`,
       });
     });
 
@@ -75,22 +75,16 @@ class TimerScreen extends Component {
       thisHold = HoldService.find(hold);
     }
 
-    console.log('in max duration');
-    console.log(hold.hangs);
-
-
     if (thisHold.hangs[0] !== undefined) {
       const theseHangs = thisHold.hangs;
       const max = theseHangs.sorted('duration', true)[0].duration;
-      console.log('now max durawtion?');
-      console.log(max);
+
       return max;
     }
     return '-';
   }
 
   countdown() {
-    console.log('countdown called');
 
     //this automatically stops when it gets to 0.
       const timer = setInterval(() => {
@@ -104,15 +98,12 @@ class TimerScreen extends Component {
           });
           clearInterval(timer);
         }
-        console.log(this.state.countdown);
       }, 1000);
 
     return timer;
   }
 
   countup() {
-    console.log('countup called');
-
     clearInterval(this.myCounter);
     // Toggle the state every second (now how do I stop this when I click the stop button?)
     // this.setState({ timer: 0 });
@@ -124,13 +115,11 @@ class TimerScreen extends Component {
   }
 
   startTimer() {
-    console.log('startTimer called');
     clearInterval(this.myCounter);
     this.myCounter = this.countup();
   }
 
   stopTimer() {
-    console.log('stopTimer called');
     clearInterval(this.myCounter);
     this.setState({ countdown: true, timer: this.state.restBetweenHolds });
 
@@ -138,8 +127,6 @@ class TimerScreen extends Component {
   }
 
   startCountDown() {
-    console.log('startCountDown called');
-    console.log(this.state.holdIndex);
     // if this is the last hold in the series, don't start the countdown again
     if (typeof this.state.workout[this.state.holdIndex] === 'undefined') {
       clearInterval(this.myCounter);
@@ -160,10 +147,8 @@ class TimerScreen extends Component {
 
 
   onStopButtonPressed() {
-    console.log('>>> Stop Button Pressed!');
     const duration = this.state.timer;
     const yourTime = formatHangs(new Date(), duration);
-    console.log(yourTime);
 
     //for now, save data for every run of the timer.
     const hold = this.state.title;
@@ -174,7 +159,6 @@ class TimerScreen extends Component {
   }
 
   onSeeProgress() {
-    console.log('>>see progress button pressed!')
     this.props.navigator.pop();
   }
 
@@ -262,7 +246,6 @@ const styles = StyleSheet.create({
     borderColor: '#48BBEC',
     borderWidth: 1,
     borderRadius: 20,
-    // marginBottom: 10,
     margin: 10,
     alignSelf: 'auto',
     justifyContent: 'center'

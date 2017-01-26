@@ -1,5 +1,4 @@
 import Realm from 'realm';
-import HoldModel from './models/hold';
 
 const HangSchema = {
   name: 'Hang',

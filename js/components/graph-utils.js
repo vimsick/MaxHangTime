@@ -63,20 +63,12 @@ export function createLineGraph({
     lastDatum.date,
     width
   );
-  // NOTE: scale x looks fine.
-  console.log('>> scalex is made with');
-  console.log(data[0].date);
-  console.log(lastDatum.date);
-  console.log(width);
 
   // Collect all y values.
   const allYValues = data.reduce((all, datum) => {
     all.push(yAccessor(datum));
     return all;
   }, []);
-
-  // NOTE: y values look right.
-  console.log(allYValues);
 
   // Get the min and max y value.
   const extentY = d3Array.extent(allYValues);
@@ -86,9 +78,6 @@ export function createLineGraph({
   const lineShape = d3.shape.line()
     .x((d) => scaleX(xAccessor(d)))
     .y((d) => scaleY(yAccessor(d)));
-
-  console.log('>>> lineshape data');
-  console.log(lineShape(data));
 
   return {
     data,

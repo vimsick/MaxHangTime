@@ -1,9 +1,4 @@
 'use strict';
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
 
 import React, { Component } from 'react';
 import {
@@ -23,25 +18,15 @@ import {
 import Swipeout from '@maintained-repos/react-native-swipeout';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-// import defaults from '../services/defaults';
 import HoldService from '../services/HoldService';
-import HoldModel from '../services/models/hold';
 
 const renderIf = require('../services/renderIf');
 
 const trashIcon = (<Icon name="trash" size={20} color="white" />);
 
-// this is just so I can see my database.
-const dataList = HoldService.findAll();
-// const smallCrimp = dataList.filtered("name = 'Small Crimp'")[0];
-// const sclist = smallCrimp.hangs;
-
 class EditScreen extends Component {
   constructor(props) {
     super(props);
-    //this is so I can see my database.
-    console.log('>>> Holds!');
-    console.log(dataList);
 
     this.state = {
       workout: ['waiting'], //initial state until data comes back from AsyncStorage.
@@ -81,7 +66,6 @@ class EditScreen extends Component {
     try {
       const token = await AsyncStorage.getItem('workout');
       if (token !== null) {
-        console.log('workout from async on edit');
         let t = token;
         t = t.replace(/'/g, '"');
         t = JSON.parse(t);
@@ -96,51 +80,41 @@ class EditScreen extends Component {
   }
 
   onDeletePressed() {
-    console.log('>>> Delete Button Pressed!');
     HoldService.deleteAll();
 
     // set the current routine to defaults
     AsyncStorage.setItem('workout', "['Edge: Deep', 'Edge: Shallow', 'Jug', 'Pinch',   'Pocket: Medium']");
-
     AsyncStorage.setItem('restBetweenHolds', '3');
 
     this._loadInitialState();
 
-    //NOTE: this is broken, because the welcome screen is still referencing the deleted data.
-    // this.props.navigator.pop();
+    //send you to the welcome screen again.
+    this.props.navigator.pop();
   }
 
   onAddPressed() {
-    console.log('add hold pressed!');
     this.setModalVisible(true);
   }
 
   changeRestTime(event) {
-    console.log('trying to change the time');
     const time = event.nativeEvent.text;
     this.setState({ restBetweenHolds: time }); //this is a string.
-    console.log(this.state.restBetweenHolds);
 
     if (!isNaN(parseInt(time, 10))) {
       //write to Async, otherwise, don't.
-      console.log(time);
       AsyncStorage.setItem('restBetweenHolds', time);
     }
   }
 
   rowPressed() {
-    console.log('row pressed!');
+    //this is necessary to get the underlay color to display, but nothing is happening here.
   }
 
   changeWorkout() {
-    console.log('trying to change the workout!');
-
     AsyncStorage.setItem('workout', JSON.stringify(this.state.workout));
   }
 
   deleteHold(hold) {
-    console.log('delete hold');
-    console.log(hold);
     const arr = this.state.workout;
     const alertMessage = 'You need to keep at least one hold in your routine. If you want a different hold, first add the new hold, then delete this one.'
     if (arr.length === 1) {
@@ -163,7 +137,6 @@ class EditScreen extends Component {
   }
 
   addHold(hold) {
-    console.log('add hold');
     const arr = this.state.workout;
 
     arr.push(hold);
@@ -324,8 +297,6 @@ class EditScreen extends Component {
       </ScrollView>
     );
   }
-
-
 }
 
 const styles = StyleSheet.create({

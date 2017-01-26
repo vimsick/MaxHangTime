@@ -9,8 +9,6 @@ import {
   Dimensions
 } from 'react-native';
 
-import Color from '../services/color';
-
 import Graph from './Graph';
 
 const renderIf = require('../services/renderIf');
@@ -27,9 +25,6 @@ export default class GraphView extends Component {
       name,
       data: graphData
     } = this.props;
-
-    console.log('>>>>>>>');
-    console.log(graphData);
 
     const dimensionWindow = Dimensions.get('window');
     const graphProps = {};
@@ -65,7 +60,7 @@ export default class GraphView extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 2,
-    backgroundColor: Color.Black,
+    backgroundColor: 'black',
   },
   headerButton: {
     paddingBottom: 5,
@@ -73,7 +68,7 @@ const styles = StyleSheet.create({
     // borderBottomColor: Color.BlueDark,
   },
   headerText: {
-    color: Color.White,
+    color: 'white',
     fontSize: 24,
     fontFamily: 'Heiti SC'
   },

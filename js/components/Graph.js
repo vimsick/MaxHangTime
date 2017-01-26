@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 
 import * as graphUtils from './graph-utils';
-import Color from '../services/color';
 
 const {
   Group,
@@ -106,7 +105,7 @@ export default class Graph extends Component {
           <Group x={0} y={0}>
             <Shape
               d={linePath}
-              stroke={Color.Orange}
+              stroke={'#FF9800'}
               strokeWidth={1.5}
             />
           </Group>
@@ -175,7 +174,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: 'Heiti SC',
     textAlign: 'center',
-    color: Color.White,
+    color: 'white',
   },
   ticksYContainer: {
     position: 'absolute',
@@ -191,13 +190,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: 'Heiti SC',
     textAlign: 'center',
-    color: Color.White,
+    color: 'white',
   },
   ticksYDot: {
     position: 'absolute',
     width: 2,
     height: 2,
-    backgroundColor: Color.White,
+    backgroundColor: 'white',
     borderRadius: 100
   },
 });
