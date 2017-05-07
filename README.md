@@ -5,7 +5,7 @@ My Capstone project for Ada Developer's Academy C6 was a React Native iOS app fo
 * [React Native](https://facebook.github.io/react-native/) 
 * [Realm](https://realm.io/docs/javascript/latest/index.html) (local data storage solution) 
 * [D3](https://github.com/d3/) 
-* react-native-art
+* [react-native-art](https://github.com/facebook/react-native/tree/master/Libraries/ART)
 * [react-native-swipeout](https://github.com/dancormier/react-native-swipeout)
 
 # Product Plan 
